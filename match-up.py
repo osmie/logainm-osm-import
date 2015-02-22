@@ -36,15 +36,45 @@ def candidate_logainm_ids(townland, logainms):
 
     return same_name
 
+def single_exact_name_and_name_ga_match_and_inside(townland, logainms):
+    name = townland['properties'].get('NAME')
+    name_ga = townland['properties'].get('NAME:GA')
+    if name_ga is None:
+        return None
+
+    same_name = [l for l in logainms if l['name_en'] == name and l['name_ga'] == name_ga]
+
+    if len(same_name) == 1 and townland['geom_3857'].intersects(same_name[0]['point_3857']):
+        return same_name[0]
+    else:
+        return None
+
+def single_exact_name_and_optional_name_ga_match_and_inside(townland, logainms):
+    name = townland['properties'].get('NAME')
+    name_ga = townland['properties'].get('NAME:GA')
+
+    if name_ga:
+        same_name = [l for l in logainms if l['name_en'] == name and l['name_ga'] == name_ga]
+    else:
+        same_name = [l for l in logainms if l['name_en'] == name]
+
+    if len(same_name) == 1 and townland['geom_3857'].intersects(same_name[0]['point_3857']):
+        return same_name[0]
+    else:
+        return None
+
 def get_existing_osm_tags(xml_el):
+    """Given a XML element for an object, return (as dict) the current OSM tags"""
     return {el.get('k'): el.get('v') for el in xml_el.findall("tag")}
 
 
 def logainm_tags(xml_el, logainm_data):
+    """Given an XML element for an OSM object, return (as dict) the tags to add
+    to it, presuming it is to be matched up to this logainm_data"""
     tags = get_existing_osm_tags(xml_el)
     new_tags = {
         'logainm:ref': logainm_data['logainm_id'],
-        'logainm:url': 'http://www.logainm.ie/{}'.format(logainm_data['logainm_id'])
+        'logainm:url': 'http://www.logainm.ie/en/{}'.format(logainm_data['logainm_id'])
     }
 
     if 'name:ga' not in tags:
@@ -59,6 +89,20 @@ def logainm_tags(xml_el, logainm_data):
         if tags['name:en'] != logainm_data['name_en']:
             new_tags['offical_name:en'] = logainm_data['name_en']
 
+    return new_tags
+
+def match_up_pass(townlands, logainms, matching_function):
+    logainm_candidates = {}
+    unmatched_townlands = []
+    for townland in townlands:
+        #logger.debug("Looking at townland name %s osm_id %s", townland['properties']['NAME'], townland['properties']['OSM_ID'])
+        candidate = matching_function(townland, logainms)
+        if candidate:
+            logainm_candidates[('relation', str(abs(int(townland['properties']['OSM_ID']))))] = candidate
+        else:
+            unmatched_townlands.append(townland)
+
+    return logainm_candidates, unmatched_townlands
 
 
 def main():
@@ -81,6 +125,8 @@ def main():
                 t['geom'] = shape(t['geometry'])
                 t['geom_3857'] = transform(latlon_to_3857, t['geom'])
 
+        logger.info("Loaded %d townlands", len(townlands))
+
     with printer("reading in Logainm CSV"):
         with open("logainm-csvs/townlands.csv") as csvfp:
             reader = csv.DictReader(csvfp)
@@ -91,19 +137,20 @@ def main():
             l['point'] = Point((float(l['lon']), float(l['lat'])))
             l['point_3857'] = transform(latlon_to_3857, l['point'])
 
+        logger.info("Loaded %d Logainm rows", len(logainms))
+
     # match up OSM & Logainm
     with printer("matching up"):
         logainm_candidates = {}
-        for townland in townlands[:5]:
-            logger.debug("Looking at townland name %s osm_id %s", townland['properties']['NAME'], townland['properties']['OSM_ID'])
-            candidates = candidate_logainm_ids(townland, logainms)
-            if len(candidates) == 0:
-                logger.info("No results for %s", townland['properties']['NAME'])
-            elif len(candidates) == 1:
-                logger.info("Got a result for %s", townland['properties']['NAME'])
-                logainm_candidates[('relation', str(abs(int(townland['properties']['OSM_ID']))))] = candidates[0]
-            else:
-                logger.info("Got >1 results for %s", townland['properties']['NAME'])
+
+        for func in [
+                    single_exact_name_and_name_ga_match_and_inside,
+                    single_exact_name_and_optional_name_ga_match_and_inside
+                ]:
+            new_logainm_candidates, new_townlands = match_up_pass(townlands, logainms, func)
+            logainm_candidates.update(new_logainm_candidates)
+            logger.info("Matched up %d townlands, only %d left", len(townlands) - len(new_townlands), len(new_townlands))
+            townlands = new_townlands
 
 
     # read in OSM XML
@@ -115,7 +162,6 @@ def main():
     with printer("adding XML tags"):
         for rel in root.iter("relation"):
             osm_id = rel.get("id", None)
-            #logger.debug("OSM ID %r", osm_id)
             if ('relation', osm_id) in logainm_candidates:
                 logging.debug("Adding tags to OSM_ID %d", osm_id)
                 logaimn_data = logainm_candidates[('relation', osm_id)]
