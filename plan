@@ -1,37 +1,37 @@
 ==Goals==
 
-Logainm, which is the Irish for "place name", is the website of the Placenames Database of Ireland. They recently released their data under ODbL, and the goal is to import as much as possible.
+Logainm, which is the Irish for "place name", is the website of the Bunachar Logainmneacha na hÉireann (Placenames Database of Ireland). They recently released their data under ODbL, and the goal is to import as much as possible.
 
-We want to add the offical irish name (name:ga), offical english name (name:en), and the logainm reference code to Irish administrative boundaries (townlands (admin_level=10), EDs (admin_level=9), Counties (admin_level=6 and 7), subtownlands (place=locality, locality=subtowwnland), civil parishes (boundary=civil_parish) and baronies (boundary=barony)).
+We want to add the offical irish name (name:ga), offical english name (name:en), and the logainm reference code to Irish administrative boundaries (townlands (admin_level=10), EDs (admin_level=9), Counties (admin_level=6 and 7), subtownlands (place=locality, locality=subtownland), civil parishes (boundary=civil_parish) and baronies (boundary=barony)).
 
-This will radically improve the coverage of Irish names for administrative boundaries in OSM. It will also allow 2 databases (OSM & Logainm) to be matched up later.
+This will radically improve the coverage of Irish names for administrative boundaries in OSM. It will also allow 2 databases (OSM & Logainm) to be cross-referenced.
 
 ==Community support==
 
-I, (Rorym), plan to do the import, and am an active member of the Irish OpenStreetMap community. The rest of the Irish OSM community is in favour of this. [https://lists.openstreetmap.org/pipermail/talk-ie/2014-October/000715.html talk-ie thread with much approval]
+I, (Rorym), plan to do the import, and am an active member of the Irish OpenStreetMap community, I'm an active mapper of townlands, and have made a website, townlands.ie, which shows the current townland coverage and has various QA tools for townland mapping. The rest of the Irish OSM community is in favour of this. [https://lists.openstreetmap.org/pipermail/talk-ie/2014-October/000715.html talk-ie thread with much approval]
 
 == Schedule==
 
 To be decided.
 
-The Irish OSM community is currently mapping townlands (etc.), and is about 30% done. We expect to be done in a year. Hence this will be a semi-continuous import process, which will be occassionally run to update the OSM data that has been added since the last run. Additional runs should be considered part of this import.
+The Irish OSM community is currently mapping townlands (etc.), and is about 50% done. We expect to be done in a year. Hence this will be a semi-continuous import process, which will be occassionally run to update the OSM data that has been added since the last run. Additional runs should be considered part of this import.
 
 ==Import Data==
 
 ===Background===
 
-'''Data source site:''' [http://www.logainm.ie/ Logainm.ie]. I have [http://www.logainm.ie/en/inf/proj-machines followed their instructions] and have [http://www.technomancy.org/logainm/ downloaded the full data].
+'''Data source site:''' Bunachar Logainmneacha na hÉireann (Placenames Database of Ireland) [http://www.logainm.ie/ Logainm.ie]. I have [http://www.logainm.ie/en/inf/proj-machines followed their instructions] and have [http://www.technomancy.org/logainm/ downloaded the full data].
 '''Data license:''' ODbL v1.0 ( http://www.logainm.ie/en/inf/proj-xml )
 '''OSM attribution (if required):''' N/A
 '''ODbL Compliance verified:''' yes
 
 ===OSM Data Files===
 
-Link to your source data files that you have prepared for the import - e.g. the .osm files you have derived from the data sources.
+Not created yet.
 
 ===Import Type===
 
-The Irish OSM community is currently mapping townlands (etc.), and is about 30% done. We expect to be done in a year. Hence this will be a semi-continuous import process, which will be occassionally run to update the OSM data that has been added since the last run. New uploads will be manually run.
+The Irish OSM community is currently mapping townlands (etc.), and is about 50% done. We expect to be done in a year. Hence this will be a semi-continuous import process, which will be occassionally run to update the OSM data that has been added since the last run. New uploads will be manually run.
 
 JOSM upload will probably be used.
 
@@ -49,7 +49,7 @@ There is no need to simplify or reduce the data.
 !Justification
 |-
 |logainm:ref
-|Logainm numeric OD
+|Logainm numeric ID
 |Allows one to cross reference OSM data with Logainm at a later date
 |-
 |name:ga
@@ -87,7 +87,7 @@ We will add these changeset tags
 
 ===Data Transformation Results===
 
-Post a link to your OSM XML files.
+Not created yet.
 
 ==Data Merge Workflow==
 
@@ -101,12 +101,9 @@ List all factors that will be evaluated in the import.
 
 ===Workflow===
 
-Detail the steps you'll take during the actual import.
-
-Information to include:
-* Step by step instructions
-* Changeset size policy
-* Revert plans
+* Download current OSM data for the objects to be updated
+* Match up logainm details and edit XML file
+* Open in JOSM and upload
 
 ===Conflation===
 
@@ -117,8 +114,6 @@ When looking at the OSM objects, which already has a (say) a name:ga tag, the so
 ==QA==
 
 OSM-IE has created [www.townlands.ie Townlands.ie], which is used to help track mapping of townlands, and for QA of the mapped data. We can add features to this.
-
-The Logainm data has 
 
 [[Category:Import]]
 
