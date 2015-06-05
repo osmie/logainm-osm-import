@@ -6,6 +6,7 @@ from contextlib import contextmanager
 import pyproj
 from functools import partial
 import xml.etree.ElementTree as ET
+import sqlite3
 
 
 logger = logging.getLogger(__name__)
@@ -112,6 +113,12 @@ def logainm_tags(xml_el, logainm_data):
 
     return new_tags
 
+def get_logainm_tags(cursor, logainm_id):
+    cursor.execute("select logainm_id, name_en, name_ga from names where logainm_id = ?", logainm_id)
+    data = cursor.fetchone()
+    return {'logainm_id': data[0], 'name_en': data[1], 'name_ga': data[2]}
+
+
 def match_up_pass(townlands, logainms, matching_function):
     logainm_candidates = {}
     unmatched_townlands = []
@@ -134,54 +141,49 @@ def main():
     ch.setFormatter(formatter)
     logger.addHandler(ch)
 
+    conn = sqlite3.connect("logainm.sqlite")
+    cursor = conn.cursor()
+
     logger.setLevel(logging.DEBUG)
 
-    with printer("reading in OSM shapefile"):
-        with fiona.open("townlands/townlands.shp", encoding="utf8") as src:
-            townlands = list(src)
+    boundaries = []
+    with printer("reading in OSM shapefiles"):
+        for filename, type in [
+                    ('townlands/townlands.shp', 'townland'),
+                    ('counties/counties.shp', 'county'),
+                    ('baronies/baronies.shp', 'barony'),
+                    ('civil_parishes/civil_parishes.shp', 'civil_parish'),
+            ]:
+            with fiona.open(filename, encoding="utf8") as src:
+                these_objs = list(src)
 
-        # add geom
-        with printer("re-creating geom and transforming for 3857"):
-            for t in townlands:
-                t['geom'] = shape(t['geometry'])
-                t['geom_3857'] = transform(latlon_to_3857, t['geom'])
+            # add geom
+            with printer("re-creating geom and transforming for 3857"):
+                for t in these_objs:
+                    t['geom'] = shape(t['geometry'])
+                    t['geom_3857'] = transform(latlon_to_3857, t['geom'])
+                    t['type'] = type
 
-        logger.info("Loaded %d townlands", len(townlands))
+            logger.info("Loaded %d %s", len(these_objs), type)
+            boundaries.extend(these_objs)
+        logger.info("Have %d boundaries", len(boundaries))
 
-    with printer("reading in Logainm CSV"):
-        with open("logainm-csvs/townlands.csv") as csvfp:
-            reader = csv.DictReader(csvfp)
-            logainms = list(reader)
-        
-        # Add point object
-        for l in logainms:
-            l['point'] = Point((float(l['lon']), float(l['lat'])))
-            l['point_3857'] = transform(latlon_to_3857, l['point'])
-            l['name_ga'] = l['name_ga'].decode("utf8")
 
-        logger.info("Loaded %d Logainm rows", len(logainms))
+    cursor.execute("select 'County '||name_en, logainm_id from names where logainm_category_code = 'CON' and name_en = 'Carlow';")
+    logainm_counties = dict(cursor.fetchall())
 
-    #import pdb ; pdb.set_trace()
+    for county_name in logainm_counties:
+        logger.info("Dealing with %s", county_name)
+        osm_county = [b for b in boundaries if b['type'] == 'county' and b['name'] == county_name][0]
+        logainm_data = get_logainm_tags(cursor, logainm_counties[county_name])
+        logainm_candidates[('relation', str(abs(int(osm_county['properties']['OSM_ID']))))] = logainm_data
 
-    # match up OSM & Logainm
-    with printer("matching up"):
-        logainm_candidates = {}
 
-        for func in [
-                    single_exact_name_and_name_ga_match_and_inside,
-                    single_exact_name_and_optional_name_ga_match_and_inside,
-                    name_and_optional_name_ga_match_very_near,
-                ]:
-            name = func.__name__
-            new_logainm_candidates, new_townlands = match_up_pass(townlands, logainms, func)
-            logainm_candidates.update(new_logainm_candidates)
-            logger.info("Matched up %d townlands with %s, only %d left", len(townlands) - len(new_townlands), name, len(new_townlands))
-            townlands = new_townlands
-
+    import pdb ; pdb.set_trace()
 
     # read in OSM XML
     with printer("reading in OSM XML"):
-        tree = ET.parse('townlands.osm.xml')
+        tree = ET.parse('boundaries.osm.xml')
         root = tree.getroot()
 
     # add new tags to OSM XML
@@ -196,6 +198,6 @@ def main():
 
 
     # write out OSM XML
-    tree.write("new-townlands.osm.xml")
+    tree.write("new-boundaries.osm.xml")
 
 main()
