@@ -40,13 +40,13 @@ for c in list(cursor.fetchall()):
                 'townlands': townlands,
             })
 
-            #cursor.execute("select logainm_id, name_en, name_ga from names join geometric_contains where names.logainm_category_code = 'BF' and geometric_contains.inner_obj_id = names.logainm_id and geometric_contains.outer_obj_id = ?", [cp[0]])
-            #for t in list(cursor.fetchall()):
-            #    townlands.append({
-            #        'id': t[0],
-            #        'name_en': t[1],
-            #        'name_ga': t[2],
-            #    })
+            cursor.execute("select logainm_id, name_en, name_ga from names join geometric_contains where names.logainm_category_code = 'BF' and geometric_contains.inner_obj_id = names.logainm_id and geometric_contains.outer_obj_id = ?", [cp[0]])
+            for t in list(cursor.fetchall()):
+                townlands.append({
+                    'id': t[0],
+                    'name_en': t[1],
+                    'name_ga': t[2],
+                })
 
 
 
@@ -60,7 +60,7 @@ all_template_src = u"""<!DOCTYPE html><html>
 <h1>Logainm data</h1>
 <p>This page shows the <a href="http://www.logainm.ie">Logainm</a> data in a format for adding to <a href="http://www.openstreetmap.org">OpenStreetMap</a> with the <a href="http://level0.osmz.ru/">Level0</a> editor.</p>
 <p>Many of this counties/baronies/etc are not yet in OSM, and hence the "Check on Townlands.ie" will not work.</p>
-<p>The <code>logainm:ref</code> tag should be added to all the objects. I've suggested <code>offical_name:en</code> and <code>offical_name:ga</code>, but for objects in Northern Ireland this is not correct, and so those tags should not be added there unless you know it's accurate.</p>
+<p>The <code>logainm:ref</code> tag should be added to all the objects. I've suggested <code>official_name:en</code> and <code>official_name:ga</code>, but for objects in Northern Ireland this is not correct, and so those tags should not be added there unless you know it's accurate.</p>
 <p>The Irish names are mostly accurate, but sometimes there is an encoding problem with letters with fadas. Don't copy the wrong value from here, check what the proper Irish name is on Logainm and use that.</p>
 <ul>
     {% for county in counties|sort(attribute='name_en') %}
