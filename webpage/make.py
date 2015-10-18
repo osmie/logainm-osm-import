@@ -107,7 +107,7 @@ all_template_src = u"""<!DOCTYPE html><html>
 </textarea>
         {% for cp in barony.civil_parishes|sort(attribute='name_en') %}
             <h4 id="cp{{ cp.id }}">Civil Parish: {{ cp.name_en }}</h4>
-                <a href="county{{ county.id }}">Co. {{ county.name_en }}</a> → <a href="#barony{{ barony.id }}">Barony {{ barony.name_en }}</a> → <b>Civil Parish {{ cp.name_en }}</b>
+                <a href="#county{{ county.id }}">Co. {{ county.name_en }}</a> → <a href="#barony{{ barony.id }}">Barony {{ barony.name_en }}</a> → <b>Civil Parish {{ cp.name_en }}</b>
                 <p><a href="http://www.townlands.ie/by/logainm/{{ cp.id }}">Search Townlands.ie by logainm ref</a> - <a href="http://www.townlands.ie/search/?q={{ cp.name_en }}">Search Townlands.ie by name</a> - <a href="http://www.logainm.ie/en/{{ cp.id }}">View on Logaimn</a></p>
 <textarea readonly rows=3 cols=80>
   logainm:ref = {{ cp.id }}
