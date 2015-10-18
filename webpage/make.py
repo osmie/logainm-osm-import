@@ -54,7 +54,6 @@ all_template_src = u"""<!DOCTYPE html><html>
 <head>
     <meta charset="utf-8">
     <link href="/static/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 </head>
 <body>
 <div class="container">
