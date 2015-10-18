@@ -114,7 +114,7 @@ def logainm_tags(xml_el, logainm_data):
     return new_tags
 
 def get_logainm_tags(cursor, logainm_id):
-    cursor.execute("select logainm_id, name_en, name_ga from names where logainm_id = ?", logainm_id)
+    cursor.execute("select logainm_id, name_en, name_ga from names where logainm_id = ?", [logainm_id])
     data = cursor.fetchone()
     return {'logainm_id': data[0], 'name_en': data[1], 'name_ga': data[2]}
 
@@ -149,10 +149,10 @@ def main():
     boundaries = []
     with printer("reading in OSM shapefiles"):
         for filename, type in [
-                    ('townlands/townlands.shp', 'townland'),
+            #('townlands/townlands.shp', 'townland'),
                     ('counties/counties.shp', 'county'),
                     ('baronies/baronies.shp', 'barony'),
-                    ('civil_parishes/civil_parishes.shp', 'civil_parish'),
+            #('civil_parishes/civil_parishes.shp', 'civil_parish'),
             ]:
             with fiona.open(filename, encoding="utf8") as src:
                 these_objs = list(src)
@@ -168,17 +168,23 @@ def main():
             boundaries.extend(these_objs)
         logger.info("Have %d boundaries", len(boundaries))
 
+    logainm_candidates = {}
+
 
     cursor.execute("select 'County '||name_en, logainm_id from names where logainm_category_code = 'CON' and name_en = 'Carlow';")
     logainm_counties = dict(cursor.fetchall())
 
     for county_name in logainm_counties:
         logger.info("Dealing with %s", county_name)
-        osm_county = [b for b in boundaries if b['type'] == 'county' and b['name'] == county_name][0]
+        osm_county = [b for b in boundaries if b['type'] == 'county' and 'County '+b['properties']['NAME'] == county_name][0]
         logainm_data = get_logainm_tags(cursor, logainm_counties[county_name])
         logainm_candidates[('relation', str(abs(int(osm_county['properties']['OSM_ID']))))] = logainm_data
 
+        logainm_baronies = []
+        cursor.execute("select name_en, logainm_id from names where logainm_category_code = 'BAR';")
 
+
+    print logainm_candidates
     import pdb ; pdb.set_trace()
 
     # read in OSM XML
