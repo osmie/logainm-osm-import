@@ -1,0 +1,5 @@
+download townland shapefiles from t.ie
+get OSM XML for country extract w/ osmosis
+using shapefile & logainm data match up logainm id and OSM id
+modify OSM XML to include logainm details
+upload
