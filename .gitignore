@@ -7,4 +7,9 @@ ireland-and-northern-ireland.osm.pbf
 *.sqlite
 webpage/*.html
 webpage/counties/*
+counties/*
+baronies/*
+eds/*
+civil_parishes/*
+logainm-csvs/*
 
