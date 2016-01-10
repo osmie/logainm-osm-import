@@ -4,6 +4,10 @@ import sqlite3
 import pprint
 from jinja2 import Template
 
+def logainm_id_to_path(lid):
+    s = "{:06d}".format(int(lid))
+    return "{}/{}/{}.png".format(s[0:2], s[2:4], s[4:6])
+
 logainm = {}
 
 conn = sqlite3.connect("../logainm.sqlite")
@@ -18,6 +22,7 @@ for c in list(cursor.fetchall()):
         'name_en': c[1],
         'name_ga': c[2],
         'baronies': baronies,
+        'icon': logainm_id_to_path(c[0]),
     })
 
     cursor.execute("select logainm_id, name_en, name_ga from names join geometric_contains where names.logainm_category_code = 'BAR' and geometric_contains.inner_obj_id = names.logainm_id and geometric_contains.outer_obj_id = ?", [c[0]])
@@ -27,7 +32,8 @@ for c in list(cursor.fetchall()):
             'id': barony[0],
             'name_en': barony[1],
             'name_ga': barony[2],
-            'civil_parishes': cps
+            'civil_parishes': cps,
+            'icon': logainm_id_to_path(barony[0]),
         })
 
         cursor.execute("select logainm_id, name_en, name_ga from names join geometric_contains where names.logainm_category_code = 'PAR' and geometric_contains.inner_obj_id = names.logainm_id and geometric_contains.outer_obj_id = ?", [barony[0]])
@@ -38,6 +44,7 @@ for c in list(cursor.fetchall()):
                 'name_en': cp[1],
                 'name_ga': cp[2],
                 'townlands': townlands,
+                'icon': logainm_id_to_path(cp[0]),
             })
 
             cursor.execute("select logainm_id, name_en, name_ga from names join geometric_contains where names.logainm_category_code = 'BF' and geometric_contains.inner_obj_id = names.logainm_id and geometric_contains.outer_obj_id = ?", [cp[0]])
@@ -46,6 +53,7 @@ for c in list(cursor.fetchall()):
                     'id': t[0],
                     'name_en': t[1],
                     'name_ga': t[2],
+                    'icon': logainm_id_to_path(t[0]),
                 })
 
 
@@ -64,14 +72,14 @@ all_template_src = u"""<!DOCTYPE html><html>
 <p>The Irish names are mostly accurate, but sometimes there is an encoding problem with letters with fadas. Don't copy the wrong value from here, check what the proper Irish name is on Logainm and use that.</p>
 <ul>
     {% for county in counties|sort(attribute='name_en') %}
-        <li><a href="#county{{ county.id }}">{{ county.name_en }}</a>
+        <li><img src="/static/logainm_icons/{{ county.icon }}"><a href="#county{{ county.id }}">{{ county.name_en }}</a>
     {% endfor %}
 </ul>
 <p>
 <a href="/">Back to Townlands.ie</a>
 </p>
 {% for county in counties|sort(attribute='name_en') %}
-    <h2 id="county{{ county.id }}">County: {{ county.name_en }}</h2>
+    <h2 id="county{{ county.id }}"><img src="/static/logainm_icons/{{ county.icon }}">County: {{ county.name_en }}</h2>
         <p><a href="http://www.townlands.ie/by/logainm/{{ county.id }}">Search Townlands.ie by logainm ref</a> - <a href="http://www.townlands.ie/search/?q={{ county.name_en }}">Search Townlands.ie by name</a> - <a href="http://www.logainm.ie/en/{{ county.id }}">View on Logaimn</a></p>
         <p><a href="counties/{{ county.name_en }}.html">View Townlands in {{ county.name_en }}</a></p>
 <textarea id=text readonly rows=3 cols=80>
@@ -83,11 +91,11 @@ all_template_src = u"""<!DOCTYPE html><html>
     <ul class="list-unstyled">
         {% for barony in county.baronies|sort(attribute='name_en') %}
         <li>
-            <a href="#barony{{ barony.id }}">{{ barony.name_en }}</a>
+            <img src="/static/logainm_icons/{{ barony.icon }}"><a href="#barony{{ barony.id }}">{{ barony.name_en }}</a>
             <ul class="list-inline small">
                 {% for cp in barony.civil_parishes|sort(attribute='name_en') %}
                 <li>
-                    <a href="#cp{{ cp.id }}">{{ cp.name_en }}</a>
+                    <img src="/static/logainm_icons/{{ cp.icon }}"><a href="#cp{{ cp.id }}">{{ cp.name_en }}</a>
                 </li>
                 {% endfor %}
             </ul>
@@ -97,7 +105,7 @@ all_template_src = u"""<!DOCTYPE html><html>
     </div>
 
     {% for barony in county.baronies|sort(attribute='name_en') %}
-        <h3 id="barony{{barony.id }}">Barony: {{ barony.name_en }}</h3>
+        <h3 id="barony{{barony.id }}"><img src="/static/logainm_icons/{{ barony.icon }}">Barony: {{ barony.name_en }}</h3>
             <a href="#county{{ county.id }}">Co. {{ county.name_en }}</a> → <b>Barony {{ barony.name_en }}</b>
             <p><a href="http://www.townlands.ie/by/logainm/{{ barony.id }}">Search Townlands.ie by logainm ref</a> - <a href="http://www.townlands.ie/search/?q={{ barony.name_en }}">Search Townlands.ie by name</a> - <a href="http://www.logainm.ie/en/{{ barony.id }}">View on Logaimn</a></p>
 <textarea readonly rows=3 cols=80>
@@ -106,7 +114,7 @@ all_template_src = u"""<!DOCTYPE html><html>
   official_name:ga = {{ barony.name_ga }}{% endif %}
 </textarea>
         {% for cp in barony.civil_parishes|sort(attribute='name_en') %}
-            <h4 id="cp{{ cp.id }}">Civil Parish: {{ cp.name_en }}</h4>
+            <h4 id="cp{{ cp.id }}"><img src="/static/logainm_icons/{{ cp.icon }}">Civil Parish: {{ cp.name_en }}</h4>
                 <a href="#county{{ county.id }}">Co. {{ county.name_en }}</a> → <a href="#barony{{ barony.id }}">Barony {{ barony.name_en }}</a> → <b>Civil Parish {{ cp.name_en }}</b>
                 <p><a href="http://www.townlands.ie/by/logainm/{{ cp.id }}">Search Townlands.ie by logainm ref</a> - <a href="http://www.townlands.ie/search/?q={{ cp.name_en }}">Search Townlands.ie by name</a> - <a href="http://www.logainm.ie/en/{{ cp.id }}">View on Logaimn</a></p>
 <textarea readonly rows=3 cols=80>
@@ -130,21 +138,23 @@ with open("index.html" ,'w') as fp:
 
 per_county_template_src = u"""<!DOCTYPE html><html>
 <head>
-<meta charset="utf-8">
+    <meta charset="utf-8">
+    <link href="/static/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
+<div class="container">
 <h1>Logainm data for {{ county.name_en }}</h1>
 <p><a href="..">All counties></a></p>
 {% for barony in county.baronies|sort(attribute='name_en') %}
-    <h2>Barony: {{ barony.name_en }}</h3>
+    <h2><img src="/static/logainm_icons/{{ barony.icon }}">Barony: {{ barony.name_en }}</h3>
     Co. {{ county.name_en }} → Barony {{ barony.name_en }}
     <p><a href="http://www.townlands.ie/by/logainm/{{ barony.id }}">Search Townlands.ie by logainm ref</a> - <a href="http://www.townlands.ie/search/?q={{ barony.name_en }}">Search Townlands.ie by name</a> - <a href="http://www.logainm.ie/en/{{ barony.id }}">View on Logaimn</a></p>
     {% for cp in barony.civil_parishes|sort(attribute='name_en') %}
-        <h2>Civil Parish: {{ cp.name_en }}</h4>
+        <h2><img src="/static/logainm_icons/{{ cp.icon }}">Civil Parish: {{ cp.name_en }}</h4>
         Co. {{ county.name_en }} → Barony {{ barony.name_en }} → Civil Parish {{ cp.name_en }}
         <p><a href="http://www.townlands.ie/by/logainm/{{ cp.id }}">Search Townlands.ie by logainm ref</a> - <a href="http://www.townlands.ie/search/?q={{ cp.name_en }}">Search Townlands.ie by name</a> - <a href="http://www.logainm.ie/en/{{ cp.id }}">View on Logaimn</a></p>
         {% for td in cp.townlands|sort(attribute='name_en') %}
-            <h3>Townland: {{ td.name_en }}</h4>
+            <h3><img src="/static/logainm_icons/{{ td.icon }}">Townland: {{ td.name_en }}</h4>
                 Co. {{ county.name_en }} → Barony {{ barony.name_en }} → Civil Parish {{ cp.name_en }} → Townland {{ td.name_en }}
                 <p><a href="http://www.townlands.ie/by/logainm/{{ td.id }}">Search Townlands.ie by logainm ref</a> - <a href="http://www.townlands.ie/search/?q={{ td.name_en }}">Search Townlands.ie by name</a> - <a href="http://www.logainm.ie/en/{{ td.id }}">View on Logaimn</a></p>
 <textarea readonly rows=3 cols=80>
@@ -155,8 +165,8 @@ per_county_template_src = u"""<!DOCTYPE html><html>
         {% endfor %}
     {% endfor %}
 {% endfor %}
+</div>
 </body>
-
 </html>
 """
 
