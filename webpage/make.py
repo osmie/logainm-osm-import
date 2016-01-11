@@ -72,14 +72,14 @@ all_template_src = u"""<!DOCTYPE html><html>
 <p>The Irish names are mostly accurate, but sometimes there is an encoding problem with letters with fadas. Don't copy the wrong value from here, check what the proper Irish name is on Logainm and use that.</p>
 <ul>
     {% for county in counties|sort(attribute='name_en') %}
-        <li><img src="/static/logainm/icons/{{ county.icon }}"><a href="#county{{ county.id }}">{{ county.name_en }}</a>
+    <li><img style="height: 1.5ch; margin-right: 1ch;" src="/static/logainm/icons/{{ county.icon }}"><a href="#county{{ county.id }}">{{ county.name_en }}</a>
     {% endfor %}
 </ul>
 <p>
 <a href="/">Back to Townlands.ie</a>
 </p>
 {% for county in counties|sort(attribute='name_en') %}
-    <h2 id="county{{ county.id }}"><img src="/static/logainm/icons/{{ county.icon }}">County: {{ county.name_en }}</h2>
+<h2 id="county{{ county.id }}"><img style="height: 1.5ch; margin-right: 1ch;" src="/static/logainm/icons/{{ county.icon }}">County: {{ county.name_en }}</h2>
         <p><a href="http://www.townlands.ie/by/logainm/{{ county.id }}">Search Townlands.ie by logainm ref</a> - <a href="http://www.townlands.ie/search/?q={{ county.name_en }}">Search Townlands.ie by name</a> - <a href="http://www.logainm.ie/en/{{ county.id }}">View on Logaimn</a></p>
         <p><a href="counties/{{ county.name_en }}.html">View Townlands in {{ county.name_en }}</a></p>
 <textarea id=text readonly rows=3 cols=80>
@@ -91,11 +91,11 @@ all_template_src = u"""<!DOCTYPE html><html>
     <ul class="list-unstyled">
         {% for barony in county.baronies|sort(attribute='name_en') %}
         <li>
-            <img src="/static/logainm/icons/{{ barony.icon }}"><a href="#barony{{ barony.id }}">{{ barony.name_en }}</a>
+        <h3><img style="height: 1.5ch; margin-right: 1ch;" src="/static/logainm/icons/{{ barony.icon }}"><a href="#barony{{ barony.id }}">{{ barony.name_en }}</a></h3>
             <ul class="list-inline small">
                 {% for cp in barony.civil_parishes|sort(attribute='name_en') %}
                 <li>
-                    <img src="/static/logainm/icons/{{ cp.icon }}"><a href="#cp{{ cp.id }}">{{ cp.name_en }}</a>
+                <img style="height: 1.5ch; margin-right: 1ch;" src="/static/logainm/icons/{{ cp.icon }}"><a href="#cp{{ cp.id }}">{{ cp.name_en }}</a>
                 </li>
                 {% endfor %}
             </ul>
@@ -105,7 +105,7 @@ all_template_src = u"""<!DOCTYPE html><html>
     </div>
 
     {% for barony in county.baronies|sort(attribute='name_en') %}
-        <h3 id="barony{{barony.id }}"><img src="/static/logainm/icons/{{ barony.icon }}">Barony: {{ barony.name_en }}</h3>
+        <h3 id="barony{{barony.id }}"><img style="height: 1.5ch; margin-right: 1ch;"src="/static/logainm/icons/{{ barony.icon }}">Barony: {{ barony.name_en }}</h3>
             <a href="#county{{ county.id }}">Co. {{ county.name_en }}</a> → <b>Barony {{ barony.name_en }}</b>
             <p><a href="http://www.townlands.ie/by/logainm/{{ barony.id }}">Search Townlands.ie by logainm ref</a> - <a href="http://www.townlands.ie/search/?q={{ barony.name_en }}">Search Townlands.ie by name</a> - <a href="http://www.logainm.ie/en/{{ barony.id }}">View on Logaimn</a></p>
 <textarea readonly rows=3 cols=80>
@@ -114,7 +114,7 @@ all_template_src = u"""<!DOCTYPE html><html>
   official_name:ga = {{ barony.name_ga }}{% endif %}
 </textarea>
         {% for cp in barony.civil_parishes|sort(attribute='name_en') %}
-            <h4 id="cp{{ cp.id }}"><img src="/static/logainm/icons/{{ cp.icon }}">Civil Parish: {{ cp.name_en }}</h4>
+            <h4 id="cp{{ cp.id }}"><img style="height: 1.5ch; margin-right: 1ch;"src="/static/logainm/icons/{{ cp.icon }}">Civil Parish: {{ cp.name_en }}</h4>
                 <a href="#county{{ county.id }}">Co. {{ county.name_en }}</a> → <a href="#barony{{ barony.id }}">Barony {{ barony.name_en }}</a> → <b>Civil Parish {{ cp.name_en }}</b>
                 <p><a href="http://www.townlands.ie/by/logainm/{{ cp.id }}">Search Townlands.ie by logainm ref</a> - <a href="http://www.townlands.ie/search/?q={{ cp.name_en }}">Search Townlands.ie by name</a> - <a href="http://www.logainm.ie/en/{{ cp.id }}">View on Logaimn</a></p>
 <textarea readonly rows=3 cols=80>
@@ -146,15 +146,15 @@ per_county_template_src = u"""<!DOCTYPE html><html>
 <h1>Logainm data for {{ county.name_en }}</h1>
 <p><a href="..">All counties></a></p>
 {% for barony in county.baronies|sort(attribute='name_en') %}
-    <h2><img src="/static/logainm/icons/{{ barony.icon }}">Barony: {{ barony.name_en }}</h3>
+    <h2><img style="height: 1.5ch; margin-right: 1ch;"src="/static/logainm/icons/{{ barony.icon }}">Barony: {{ barony.name_en }}</h3>
     Co. {{ county.name_en }} → Barony {{ barony.name_en }}
     <p><a href="http://www.townlands.ie/by/logainm/{{ barony.id }}">Search Townlands.ie by logainm ref</a> - <a href="http://www.townlands.ie/search/?q={{ barony.name_en }}">Search Townlands.ie by name</a> - <a href="http://www.logainm.ie/en/{{ barony.id }}">View on Logaimn</a></p>
     {% for cp in barony.civil_parishes|sort(attribute='name_en') %}
-        <h2><img src="/static/logainm/icons/{{ cp.icon }}">Civil Parish: {{ cp.name_en }}</h4>
+        <h2><img style="height: 1.5ch; margin-right: 1ch;"src="/static/logainm/icons/{{ cp.icon }}">Civil Parish: {{ cp.name_en }}</h4>
         Co. {{ county.name_en }} → Barony {{ barony.name_en }} → Civil Parish {{ cp.name_en }}
         <p><a href="http://www.townlands.ie/by/logainm/{{ cp.id }}">Search Townlands.ie by logainm ref</a> - <a href="http://www.townlands.ie/search/?q={{ cp.name_en }}">Search Townlands.ie by name</a> - <a href="http://www.logainm.ie/en/{{ cp.id }}">View on Logaimn</a></p>
         {% for td in cp.townlands|sort(attribute='name_en') %}
-            <h3><img src="/static/logainm/icons/{{ td.icon }}">Townland: {{ td.name_en }}</h4>
+            <h3><img style="height: 1.5ch; margin-right: 1ch;"src="/static/logainm/icons/{{ td.icon }}">Townland: {{ td.name_en }}</h4>
                 Co. {{ county.name_en }} → Barony {{ barony.name_en }} → Civil Parish {{ cp.name_en }} → Townland {{ td.name_en }}
                 <p><a href="http://www.townlands.ie/by/logainm/{{ td.id }}">Search Townlands.ie by logainm ref</a> - <a href="http://www.townlands.ie/search/?q={{ td.name_en }}">Search Townlands.ie by name</a> - <a href="http://www.logainm.ie/en/{{ td.id }}">View on Logaimn</a></p>
 <textarea readonly rows=3 cols=80>
