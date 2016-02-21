@@ -82,6 +82,12 @@ def barony_osmid_for_civil_parish_osmid(logainm_data, civil_parish_id):
 def parent_osmid_for_obj_osmid(logainm_data, obj_osmid, obj_key, parent_key):
     return set(t[parent_key] for t in logainm_data['townlands'] if t[obj_key] == obj_osmid and t[parent_key] != '' )
 
+def baronies_matchup(logainm_data, cursor):
+    return hierachial_matchup(logainm_data, cursor,
+                key='baronies', obj_logainm_code="BAR", parent_logainm_code='CON',
+                obj_key="BAR_OSM_ID", parent_key="CO_OSM_ID"
+         )
+
 def civil_parish_matchup(logainm_data, cursor):
     return hierachial_matchup(logainm_data, cursor,
                 key='civil_parishes', obj_logainm_code="PAR", parent_logainm_code='BAR',
@@ -157,9 +163,9 @@ def main():
 
     logainm_candidates = {}
 
-    logainm_candidates.update(baronies_matchup(logainm_data))
+    logainm_candidates.update(baronies_matchup(logainm_data, cursor))
 
-    logainm_candidates.update(civil_parish_matchup(logainm_data, cursor))
+    #logainm_candidates.update(civil_parish_matchup(logainm_data, cursor))
     #logainm_candidates.update(townlands_matchup(logainm_data, cursor))
 
     # read in OSM XML
