@@ -33,6 +33,9 @@ logainm-csvs.zip:
 
 logainm-csvs/logainm_names.csv: logainm-csvs.zip
 	aunpack logainm-csvs.zip
+	# Without this, the datetime in logainm_name.csvs will be old and hence
+	# it'll always try to rename thistarget
+	touch logainm-csvs/*
 
 logainm.sqlite: logainm-csvs/logainm_names.csv
 	-rm -f logainm.sqlite
