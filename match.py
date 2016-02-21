@@ -65,7 +65,8 @@ def name_en(obj):
 
 def read_logainm_data():
     results = {}
-    for filename, keyname in [('townlands-no-geom.csv', 'townlands'), ('civil_parishes-no-geom.csv', 'civil_parishes'), ('counties-no-geom.csv', 'counties'), ('baronies-no-geom.csv', 'baronies')]:
+    data_to_load = [('townlands-no-geom.csv', 'townlands'), ('civil_parishes-no-geom.csv', 'civil_parishes'), ('counties-no-geom.csv', 'counties'), ('baronies-no-geom.csv', 'baronies')]
+    for filename, keyname in data_to_load:
         with open(filename) as fp:
             reader = csv.DictReader(fp)
             results[keyname] = list(unicodeify_dict(x) for x in reader)
