@@ -1,6 +1,6 @@
 SHELL := bash
 
-all: boundaries.osm.xml
+all: boundaries.osm.xml townlands-no-geom.csv baronies-no-geom.csv civil_parishes-no-geom.csv counties-no-geom.csv
 
 clean:
 	-rm boundaries.osm.xml
