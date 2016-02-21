@@ -84,16 +84,16 @@ def read_logainm_data():
                 if t[parent_key] != '':
                     results['index'][obj_key][parent_key][t[obj_key]].add(t[parent_key])
 
+    results['index']['osmid_to_logainm_ref'] = {}
+    for filename, keyname in data_to_load:
+        for x in results[keyname]:
+            results['index']['osmid_to_logainm_ref'][x['OSM_ID']] = x['LOGAINM_RE']
+
     return results
 
 def osmid_to_logainm_ref(logainm_data, osm_id):
-    results = []
-    for key in logainm_data.keys():
-        if key == 'index':
-            continue
-        results += [x['LOGAINM_RE'] for x in logainm_data[key] if x['OSM_ID'] == osm_id]
-
-    return results[0]
+    result = logainm_data['index']['osmid_to_logainm_ref'][osm_id]
+    return result
 
 def barony_osmid_for_civil_parish_osmid(logainm_data, civil_parish_id):
     return set(t['BAR_OSM_ID'] for t in logainm_data['townlands'] if t['CP_OSM_ID'] == civil_parish_id and t['BAR_OSM_ID'] != '' )
