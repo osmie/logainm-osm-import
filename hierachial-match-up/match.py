@@ -14,6 +14,11 @@ def printer(msg):
     yield
     logger.info("Finished "+msg)
 
+def get_existing_osm_tags(xml_el):
+    """Given a XML element for an object, return (as dict) the current OSM tags"""
+    return {el.get('k'): el.get('v') for el in xml_el.findall("tag")}
+
+
 def logainm_tags(xml_el, logainm_data):
     """Given an XML element for an OSM object, return (as dict) the tags to add
     to it, presuming it is to be matched up to this logainm_data"""
@@ -91,27 +96,39 @@ def civil_parish_matchup(logainm_data, cursor):
     for civil_parish in possible_civil_parishes:
         barony_osm_id = barony_osmid_for_civil_parish_osmid(logainm_data, civil_parish['OSM_ID'])
         if len(barony_osm_id) == 0:
-            logger.info("No barony found for CP %s (%s)", civil_parish['NAME_TAG'], civil_parish['OSM_ID'])
+            logger.debug("No barony found for CP %s (%s)", civil_parish['NAME_TAG'], civil_parish['OSM_ID'])
             continue
         elif len(barony_osm_id) > 1:
-            logger.info("Found %d (%s) baronies for CP %s (%s)", len(barony_osm_id), ",".join(barony_osm_id), civil_parish['NAME_TAG'], civil_parish['OSM_ID'])
+            logger.debug("Found %d (%s) baronies for CP %s (%s)", len(barony_osm_id), ",".join(barony_osm_id), civil_parish['NAME_TAG'], civil_parish['OSM_ID'])
             continue
         elif len(barony_osm_id) == 1:
             barony_osm_id = barony_osm_id.pop()
             try:
                 barony_logainm_id = osmid_to_logainm_ref(logainm_data, barony_osm_id)
-                logger.info("civil_parish %s is in barony %s which is logainm id %s", civil_parish['NAME_TAG'], barony_osm_id, barony_logainm_id)
+                logger.debug("civil_parish %s is in barony %s which is logainm id %s", civil_parish['NAME_TAG'], barony_osm_id, barony_logainm_id)
             except IndexError:
-                logger.info("civil_parish %s is in barony %s which has no known logainm", civil_parish['NAME_TAG'], barony_osm_id)
+                logger.debug("civil_parish %s is in barony %s which has no known logainm", civil_parish['NAME_TAG'], barony_osm_id)
                 continue
         else:
             assert False
 
         # Now we have the logainm ref of the barony that this CP is in.
         # Look at the logainm data for the CPs in that bar
+        cursor.execute("select cp.logainm_id from names as bar join geometric_contains as con on (bar.logainm_id = con.outer_obj_id) join names as cp on (cp.logainm_id = con.inner_obj_id) where bar.logainm_category_code = 'BAR' and cp.logainm_category_code = 'PAR' and bar.logainm_id = ? and cp.name_en = ?;", [barony_logainm_id, civil_parish['NAME_TAG']])
+        data = cursor.fetchall()
+        if len(data) == 0:
+            logger.debug("Found no logainm data for barony")
+        elif len(data) > 1:
+            logger.debug("Found >1 CP logainm ids")
+        elif len(data) == 1:
+            logger.debug("Found logainm id %s", data[0][0])
+            # remove leading '-' character
+            results[('relation', civil_parish['OSM_ID'][1:])] = get_logainm_tags(cursor, data[0][0])
+        else:
+            assert False
 
 
-
+    logger.info("Found %d candidates", len(results))
     return results
 
     
@@ -127,15 +144,15 @@ def main():
     conn = sqlite3.connect("../logainm.sqlite")
     cursor = conn.cursor()
 
-    logger.setLevel(logging.DEBUG)
+    logger.setLevel(logging.INFO)
 
     logainm_data = read_logainm_data()
 
     logainm_candidates = {}
 
     #logainm_candidates.update(baronies_matchup(logainm_data))
+
     logainm_candidates.update(civil_parish_matchup(logainm_data, cursor))
-    return
 
     # read in OSM XML
     with printer("reading in OSM XML"):
