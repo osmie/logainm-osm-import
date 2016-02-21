@@ -29,7 +29,7 @@ new-boundaries.osm.xml: boundaries.osm.xml logainm.sqlite match.py townlands-no-
 	python match.py
 
 logainm-csvs.zip:
-	wget http://www.technomancy.org/logainm/logainm-csvs.zip
+	wget -O logainm-csvs.zip http://www.technomancy.org/logainm/logainm-csvs.zip
 
 logainm-csvs/logainm_names.csv: logainm-csvs.zip
 	aunpack logainm-csvs.zip
