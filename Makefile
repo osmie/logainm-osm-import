@@ -20,3 +20,14 @@ ireland-and-northern-ireland.osm.pbf:
 boundaries.osm.xml: ireland-and-northern-ireland.osm.pbf
 	osmosis --read-pbf ireland-and-northern-ireland.osm.pbf --tag-filter reject-way --tag-filter reject-node --tag-filter accept-relations admin_level=* outPipe.0=admin_level --read-pbf ireland-and-northern-ireland.osm.pbf --tag-filter reject-way --tag-filter reject-node --tag-filter accept-relations boundary=* outPipe.0=boundaries --merge inPipe.0=admin_level inPipe.1=boundaries --write-xml boundaries.osm.xml
 	xmlstarlet c14n boundaries.osm.xml | sponge boundaries.osm.xml
+
+
+logainm-csvs.zip:
+	wget http://www.technomancy.org/logainm/logainm-csvs.zip
+
+logainm-csvs/logainm_names.csv: logainm-csvs.zip
+	aunpack logainm-csvs.zip
+
+logainm.sqlite: logainm-csvs/logainm_names.csv
+	-rm -f logainm.sqlite
+	cat csv2sqlite.sql | sqlite3 logainm.sqlite

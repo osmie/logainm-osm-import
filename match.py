@@ -154,7 +154,7 @@ def main():
     ch.setFormatter(formatter)
     logger.addHandler(ch)
 
-    conn = sqlite3.connect("../logainm.sqlite")
+    conn = sqlite3.connect("logainm.sqlite")
     cursor = conn.cursor()
 
     logger.setLevel(logging.INFO)
