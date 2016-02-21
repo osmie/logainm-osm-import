@@ -3,11 +3,7 @@ SHELL := bash
 all: boundaries.osm.xml townlands-no-geom.csv baronies-no-geom.csv civil_parishes-no-geom.csv counties-no-geom.csv
 
 clean:
-	-rm boundaries.osm.xml
-	-rm -f {townlands,civil_parishes,baronies}-no-geom.csv
-	-rm ireland-and-northern-ireland.osm.pbf
-	-rm -rf logainm-csvs/
-	-rm logainm.sqlite
+	git clean -x -f
 
 ireland-and-northern-ireland.osm.pbf:
 	wget -O ireland-and-northern-ireland.osm.pbf http://planet.openstreetmap.ie/ireland-and-northern-ireland.osm.pbf
