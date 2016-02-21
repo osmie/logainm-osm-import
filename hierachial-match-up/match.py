@@ -68,23 +68,6 @@ def osmid_to_logainm_ref(logainm_data, osm_id):
 def barony_osmid_for_civil_parish_osmid(logainm_data, civil_parish_id):
     return set(t['BAR_OSM_ID'] for t in logainm_data['townlands'] if t['CP_OSM_ID'] == civil_parish_id and t['BAR_OSM_ID'] != '' )
 
-def baronies_matchup(logainm_data):
-    logger.info("Have %d baronies", len(logainm_data['baronies']))
-    results = {}
-
-    possible_baronies = [b for b in logainm_data['baronies'] if b['LOGAINM_RE'] == '']
-    logger.info("Found %d baronies without logainm ref", len(possible_baronies))
-
-    for barony in possible_baronies:
-        county_osm_id = barony['CO_OSM_ID']
-        try:
-            county_logainm_id = osmid_to_logainm_ref(logainm_data, county_osm_id)
-            logger.info("Barony %s is in county %s (%s) which is logainm is %s", barony['NAME_TAG'], barony['CO_NAME'], barony['CO_OSM_ID'], county_logainm_id)
-        except:
-            logger.info("Barony %s is in county %s (%s) which has no known logainm", barony['NAME_TAG'], barony['CO_NAME'], barony['CO_OSM_ID'])
-
-
-    return results
 
 def civil_parish_matchup(logainm_data, cursor):
     logger.info("Have %d civil parishes", len(logainm_data['civil_parishes']))
