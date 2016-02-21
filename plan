@@ -12,9 +12,9 @@ I, (Rorym), plan to do the import, and am an active member of the Irish OpenStre
 
 == Schedule==
 
-To be decided.
+As soon as approval has been given, and at regular intervals after that.
 
-The Irish OSM community is currently mapping townlands (etc.), and is about 50% done. We expect to be done in a year. Hence this will be a semi-continuous import process, which will be occassionally run to update the OSM data that has been added since the last run. Additional runs should be considered part of this import.
+The Irish OSM community is currently mapping townlands (etc.), and is about 80% done. We expect to be done in a year. Hence this will be a semi-continuous import process, which will be occassionally run to update the OSM data that has been added since the last run. Additional runs should be considered part of this import.
 
 ==Import Data==
 
@@ -31,9 +31,9 @@ Not created yet.
 
 ===Import Type===
 
-The Irish OSM community is currently mapping townlands (etc.), and is about 50% done. We expect to be done in a year. Hence this will be a semi-continuous import process, which will be occassionally run to update the OSM data that has been added since the last run. New uploads will be manually run.
+The Irish OSM community is currently mapping townlands (etc.), and is about 80% done. We expect to be done in a year. Hence this will be a semi-continuous import process, which will be occassionally run to update the OSM data that has been added since the last run. New uploads will be manually run.
 
-JOSM upload will probably be used.
+JOSM upload will be used.
 
 ==Data Preparation==
 
@@ -93,7 +93,7 @@ Not created yet.
 
 ===Team Approach===
 
-Most coding and uploading will be done by rorym, but advice will be sought from the OSM-IE community
+Most coding and uploading will be done by rorym, but advice will be sought from the OSM-IE community.
 
 ===References===
 
