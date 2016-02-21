@@ -5,6 +5,7 @@ import csv
 import sqlite3
 import xml.etree.ElementTree as ET
 import argparse
+from collections import defaultdict
 
 
 logger = logging.getLogger(__name__)
@@ -69,11 +70,26 @@ def read_logainm_data():
             reader = csv.DictReader(fp)
             results[keyname] = list(unicodeify_dict(x) for x in reader)
 
+    # create a dict
+    results['index'] = {}
+    for obj_key in  ['OSM_ID', 'BAR_OSM_ID', 'CP_OSM_ID']:
+        results['index'][obj_key] = {}
+        for parent_key in  ['BAR_OSM_ID', 'CP_OSM_ID', 'CO_OSM_ID']:
+            results['index'][obj_key][parent_key] = defaultdict(set)
+
+    for t in results['townlands']:
+        for obj_key in  ['OSM_ID', 'BAR_OSM_ID', 'CP_OSM_ID']:
+            for parent_key in  ['BAR_OSM_ID', 'CP_OSM_ID', 'CO_OSM_ID']:
+                if t[parent_key] != '':
+                    results['index'][obj_key][parent_key][t[obj_key]].add(t[parent_key])
+
     return results
 
 def osmid_to_logainm_ref(logainm_data, osm_id):
     results = []
     for key in logainm_data.keys():
+        if key == 'index':
+            continue
         results += [x['LOGAINM_RE'] for x in logainm_data[key] if x['OSM_ID'] == osm_id]
 
     return results[0]
@@ -82,7 +98,8 @@ def barony_osmid_for_civil_parish_osmid(logainm_data, civil_parish_id):
     return set(t['BAR_OSM_ID'] for t in logainm_data['townlands'] if t['CP_OSM_ID'] == civil_parish_id and t['BAR_OSM_ID'] != '' )
 
 def parent_osmid_for_obj_osmid(logainm_data, obj_osmid, obj_key, parent_key):
-    return set(t[parent_key] for t in logainm_data['townlands'] if t[obj_key] == obj_osmid and t[parent_key] != '' )
+    result = logainm_data['index'][obj_key][parent_key][obj_osmid]
+    return result
 
 def baronies_matchup(logainm_data, cursor):
     return hierachial_matchup(logainm_data, cursor,
