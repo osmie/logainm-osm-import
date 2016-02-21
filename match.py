@@ -4,6 +4,8 @@ from contextlib import contextmanager
 import csv
 import sqlite3
 import xml.etree.ElementTree as ET
+import argparse
+
 
 logger = logging.getLogger(__name__)
 
@@ -148,6 +150,15 @@ def hierachial_matchup(logainm_data, cursor, key, obj_logainm_code, parent_logai
 
 def main():
 
+    parser = argparse.ArgumentParser()
+    parser.add_argument("-i", "--input")
+    parser.add_argument("-o", "--output")
+    parser.add_argument("--baronies", action="store_true")
+    parser.add_argument("--civil-parishes", action="store_true")
+    parser.add_argument("--townlands", action="store_true")
+
+    args = parser.parse_args()
+
     ch = logging.StreamHandler(sys.stdout)
     ch.setLevel(logging.DEBUG)
     formatter = logging.Formatter('%(asctime)s - %(levelname)s - %(message)s')
@@ -163,14 +174,18 @@ def main():
 
     logainm_candidates = {}
 
-    logainm_candidates.update(baronies_matchup(logainm_data, cursor))
+    if args.baronies:
+        logainm_candidates.update(baronies_matchup(logainm_data, cursor))
 
-    #logainm_candidates.update(civil_parish_matchup(logainm_data, cursor))
-    #logainm_candidates.update(townlands_matchup(logainm_data, cursor))
+    if args.civil_parishes:
+        logainm_candidates.update(civil_parish_matchup(logainm_data, cursor))
+
+    if args.townlands:
+        logainm_candidates.update(townlands_matchup(logainm_data, cursor))
 
     # read in OSM XML
     with printer("reading in OSM XML"):
-        tree = ET.parse('boundaries.osm.xml')
+        tree = ET.parse(args.input)
         root = tree.getroot()
 
     # add new tags to OSM XML
@@ -185,7 +200,7 @@ def main():
 
 
     # write out OSM XML
-    tree.write("new-boundaries.osm.xml", encoding='utf-8', xml_declaration=True) 
+    tree.write(args.output, encoding='utf-8', xml_declaration=True) 
 
 if __name__ == '__main__':
     main()

@@ -22,7 +22,7 @@ boundaries.osm.xml: ireland-and-northern-ireland.osm.pbf
 
 new-boundaries.osm.xml: boundaries.osm.xml logainm.sqlite match.py townlands-no-geom.csv \
 	baronies-no-geom.csv civil_parishes-no-geom.csv counties-no-geom.csv
-	python match.py
+	python match.py --input boundaries.osm.xml --output new-boundaries.osm.xml --baronies --civil-parishes
 
 logainm-csvs.zip:
 	wget -O logainm-csvs.zip http://www.technomancy.org/logainm/logainm-csvs.zip
