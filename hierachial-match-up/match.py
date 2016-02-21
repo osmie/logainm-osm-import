@@ -49,12 +49,23 @@ def get_logainm_tags(cursor, logainm_id):
     data = cursor.fetchone()
     return {'logainm_id': data[0], 'name_en': data[1], 'name_ga': data[2]}
 
+def unicodeify_dict(dct):
+    for key, value in dct.items():
+        dct[key] = value.decode("utf-8")
+    return dct
+
+def name_en(obj):
+    if obj['NAME_EN'] != '':
+        return obj['NAME_EN']
+    else:
+        return obj['NAME_TAG']
+
 def read_logainm_data():
     results = {}
     for filename, keyname in [('townlands-no-geom.csv', 'townlands'), ('civil_parishes-no-geom.csv', 'civil_parishes'), ('counties-no-geom.csv', 'counties'), ('baronies-no-geom.csv', 'baronies')]:
         with open(filename) as fp:
             reader = csv.DictReader(fp)
-            results[keyname] = list(reader)
+            results[keyname] = list(unicodeify_dict(x) for x in reader)
 
     return results
 
@@ -68,45 +79,59 @@ def osmid_to_logainm_ref(logainm_data, osm_id):
 def barony_osmid_for_civil_parish_osmid(logainm_data, civil_parish_id):
     return set(t['BAR_OSM_ID'] for t in logainm_data['townlands'] if t['CP_OSM_ID'] == civil_parish_id and t['BAR_OSM_ID'] != '' )
 
+def parent_osmid_for_obj_osmid(logainm_data, obj_osmid, obj_key, parent_key):
+    return set(t[parent_key] for t in logainm_data['townlands'] if t[obj_key] == obj_osmid and t[parent_key] != '' )
 
 def civil_parish_matchup(logainm_data, cursor):
-    logger.info("Have %d civil parishes", len(logainm_data['civil_parishes']))
+    return hierachial_matchup(logainm_data, cursor,
+                key='civil_parishes', obj_logainm_code="PAR", parent_logainm_code='BAR',
+                obj_key="CP_OSM_ID", parent_key="BAR_OSM_ID"
+         )
+
+def townlands_matchup(logainm_data, cursor):
+    return hierachial_matchup(logainm_data, cursor,
+                key='townlands', obj_logainm_code="BF", parent_logainm_code='PAR',
+                obj_key="OSM_ID", parent_key="CP_OSM_ID"
+         )
+
+def hierachial_matchup(logainm_data, cursor, key, obj_logainm_code, parent_logainm_code, obj_key, parent_key):
+    logger.info("Have %d %s in total", len(logainm_data[key]), key)
     results = {}
 
-    possible_civil_parishes = [b for b in logainm_data['civil_parishes'] if b['LOGAINM_RE'] == '']
-    logger.info("Found %d civil_parishes without logainm ref", len(possible_civil_parishes))
+    possibles = [b for b in logainm_data[key] if b['LOGAINM_RE'] == '']
+    logger.info("Found %d %s without logainm ref", len(possibles), key)
 
-    for civil_parish in possible_civil_parishes:
-        barony_osm_id = barony_osmid_for_civil_parish_osmid(logainm_data, civil_parish['OSM_ID'])
-        if len(barony_osm_id) == 0:
-            logger.debug("No barony found for CP %s (%s)", civil_parish['NAME_TAG'], civil_parish['OSM_ID'])
+    for obj in possibles:
+        parent_osm_id = parent_osmid_for_obj_osmid(logainm_data, obj['OSM_ID'], obj_key, parent_key)
+        if len(parent_osm_id) == 0:
+            logger.debug("No parent found for obj %s (%s)", name_en(obj), obj['OSM_ID'])
             continue
-        elif len(barony_osm_id) > 1:
-            logger.debug("Found %d (%s) baronies for CP %s (%s)", len(barony_osm_id), ",".join(barony_osm_id), civil_parish['NAME_TAG'], civil_parish['OSM_ID'])
+        elif len(parent_osm_id) > 1:
+            logger.debug("Found %d (%s) parents for obj %s (%s)", len(parent_osm_id), ",".join(parent_osm_id), name_en(obj), obj['OSM_ID'])
             continue
-        elif len(barony_osm_id) == 1:
-            barony_osm_id = barony_osm_id.pop()
+        elif len(parent_osm_id) == 1:
+            parent_osm_id = parent_osm_id.pop()
             try:
-                barony_logainm_id = osmid_to_logainm_ref(logainm_data, barony_osm_id)
-                logger.debug("civil_parish %s is in barony %s which is logainm id %s", civil_parish['NAME_TAG'], barony_osm_id, barony_logainm_id)
+                parent_logainm_id = osmid_to_logainm_ref(logainm_data, parent_osm_id)
+                logger.debug("obj %s is in parent %s which is logainm id %s", name_en(obj), parent_osm_id, parent_logainm_id)
             except IndexError:
-                logger.debug("civil_parish %s is in barony %s which has no known logainm", civil_parish['NAME_TAG'], barony_osm_id)
+                logger.debug("obj %s is in parent %s which has no known logainm", name_en(obj), parent_osm_id)
                 continue
         else:
             assert False
 
-        # Now we have the logainm ref of the barony that this CP is in.
+        # Now we have the logainm ref of the parent that this CP is in.
         # Look at the logainm data for the CPs in that bar
-        cursor.execute("select cp.logainm_id from names as bar join geometric_contains as con on (bar.logainm_id = con.outer_obj_id) join names as cp on (cp.logainm_id = con.inner_obj_id) where bar.logainm_category_code = 'BAR' and cp.logainm_category_code = 'PAR' and bar.logainm_id = ? and cp.name_en = ?;", [barony_logainm_id, civil_parish['NAME_TAG']])
+        cursor.execute("select obj.logainm_id from names as parent join geometric_contains as con on (parent.logainm_id = con.outer_obj_id) join names as obj on (obj.logainm_id = con.inner_obj_id) where parent.logainm_category_code = ? and obj.logainm_category_code = ? and parent.logainm_id = ? and obj.name_en = ?;", [parent_logainm_code, obj_logainm_code, parent_logainm_id, name_en(obj)])
         data = cursor.fetchall()
         if len(data) == 0:
-            logger.debug("Found no logainm data for barony")
+            logger.debug("Found no logainm data for parent")
         elif len(data) > 1:
-            logger.debug("Found >1 CP logainm ids")
+            logger.debug("Found >1 obj logainm ids")
         elif len(data) == 1:
             logger.debug("Found logainm id %s", data[0][0])
             # remove leading '-' character
-            results[('relation', civil_parish['OSM_ID'][1:])] = get_logainm_tags(cursor, data[0][0])
+            results[('relation', obj['OSM_ID'][1:])] = get_logainm_tags(cursor, data[0][0])
         else:
             assert False
 
@@ -114,7 +139,6 @@ def civil_parish_matchup(logainm_data, cursor):
     logger.info("Found %d candidates", len(results))
     return results
 
-    
 
 def main():
 
@@ -133,9 +157,10 @@ def main():
 
     logainm_candidates = {}
 
-    #logainm_candidates.update(baronies_matchup(logainm_data))
+    logainm_candidates.update(baronies_matchup(logainm_data))
 
     logainm_candidates.update(civil_parish_matchup(logainm_data, cursor))
+    #logainm_candidates.update(townlands_matchup(logainm_data, cursor))
 
     # read in OSM XML
     with printer("reading in OSM XML"):
