@@ -19,10 +19,10 @@ boundaries.osm.xml: ireland-and-northern-ireland.osm.pbf
 	osmosis --read-pbf ireland-and-northern-ireland.osm.pbf --tag-filter reject-way --tag-filter reject-node --tag-filter accept-relations admin_level=* outPipe.0=admin_level --read-pbf ireland-and-northern-ireland.osm.pbf --tag-filter reject-way --tag-filter reject-node --tag-filter accept-relations boundary=* outPipe.0=boundaries --merge inPipe.0=admin_level inPipe.1=boundaries --write-xml boundaries.osm.xml
 	xmlstarlet c14n boundaries.osm.xml | sponge boundaries.osm.xml
 
-
 new-boundaries.osm.xml: boundaries.osm.xml logainm.sqlite match.py townlands-no-geom.csv \
 	baronies-no-geom.csv civil_parishes-no-geom.csv counties-no-geom.csv
 	python match.py --input boundaries.osm.xml --output new-boundaries.osm.xml --baronies --civil-parishes
+	xmlstarlet c14n new-boundaries.osm.xml | sponge new-boundaries.osm.xml
 
 logainm-csvs.zip:
 	wget -O logainm-csvs.zip http://www.technomancy.org/logainm/logainm-csvs.zip
