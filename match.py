@@ -141,7 +141,11 @@ def hierachial_matchup(logainm_data, cursor, key, obj_logainm_code, parent_logai
             parent_osm_id = parent_osm_id.pop()
             try:
                 parent_logainm_id = osmid_to_logainm_ref(logainm_data, parent_osm_id)
-                logger.debug("OK %s %s (%s) is in parent %s in OSM which is logainm id %s", key, name_en(obj), obj['OSM_ID'], parent_osm_id, parent_logainm_id)
+                if ";" in parent_logainm_id:
+                    logger.error("ERROR %s %s (%s) is in parent %s in OSM which is many logainms: %s", key, name_en(obj), obj['OSM_ID'], parent_osm_id, parent_logainm_id)
+                    continue
+                else:
+                    logger.debug("OK %s %s (%s) is in parent %s in OSM which is logainm id %s", key, name_en(obj), obj['OSM_ID'], parent_osm_id, parent_logainm_id)
             except (IndexError, KeyError):
                 logger.error("ERROR %s %s (%s) is in parent %s in OSM which has no known logainm", key, name_en(obj), obj['OSM_ID'], parent_osm_id)
                 continue
