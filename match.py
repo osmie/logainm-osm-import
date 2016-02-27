@@ -87,7 +87,8 @@ def read_logainm_data():
     results['index']['osmid_to_logainm_ref'] = {}
     for filename, keyname in data_to_load:
         for x in results[keyname]:
-            results['index']['osmid_to_logainm_ref'][x['OSM_ID']] = x['LOGAINM_RE']
+            if x['LOGAINM_RE'].strip() not in (None, ''):
+                results['index']['osmid_to_logainm_ref'][x['OSM_ID']] = x['LOGAINM_RE']
 
     return results
 
@@ -141,7 +142,7 @@ def hierachial_matchup(logainm_data, cursor, key, obj_logainm_code, parent_logai
             try:
                 parent_logainm_id = osmid_to_logainm_ref(logainm_data, parent_osm_id)
                 logger.debug("OK %s %s (%s) is in parent %s in OSM which is logainm id %s", key, name_en(obj), obj['OSM_ID'], parent_osm_id, parent_logainm_id)
-            except IndexError:
+            except (IndexError, KeyError):
                 logger.error("ERROR %s %s (%s) is in parent %s in OSM which has no known logainm", key, name_en(obj), obj['OSM_ID'], parent_osm_id)
                 continue
         else:
