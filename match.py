@@ -13,9 +13,9 @@ logger = logging.getLogger(__name__)
 @contextmanager
 def printer(msg):
     msg = msg.strip()
-    logger.info("Started "+msg)
+    logging.info("Started "+msg)
     yield
-    logger.info("Finished "+msg)
+    logging.info("Finished "+msg)
 
 def get_existing_osm_tags(xml_el):
     """Given a XML element for an object, return (as dict) the current OSM tags"""
