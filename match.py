@@ -159,8 +159,10 @@ def hierachial_matchup(logainm_data, cursor, key, obj_logainm_code, parent_logai
         data_str = ", ".join(x[0] for x in data)
         if len(data) == 0:
             logger.error("ERROR %s %s (%s) is in parent OSM:%s (logainm:%s) which has no children in logainm for this name", key, name_en(obj), obj['OSM_ID'], parent_osm_id, parent_logainm_id)
+            continue
         elif len(data) > 1:
             logger.error("ERROR %s %s (%s) is in parent OSM:%s (logainm:%s) has >1 children in logainm for this name, children: %s", key, name_en(obj), obj['OSM_ID'], parent_osm_id, parent_logainm_id, data_str)
+            continue
         elif len(data) == 1:
             logger.info("OK %s %s (%s) is in parent OSM:%s (logainm:%s) has 1 child in logainm for this name, children: %s", key, name_en(obj), obj['OSM_ID'], parent_osm_id, parent_logainm_id, data_str)
             # remove leading '-' character
