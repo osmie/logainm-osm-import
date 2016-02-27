@@ -130,18 +130,18 @@ def hierachial_matchup(logainm_data, cursor, key, obj_logainm_code, parent_logai
     for obj in possibles:
         parent_osm_id = parent_osmid_for_obj_osmid(logainm_data, obj['OSM_ID'], obj_key, parent_key)
         if len(parent_osm_id) == 0:
-            logger.debug("No parent found for obj %s (%s) in OSM", name_en(obj), obj['OSM_ID'])
+            logger.error("ERROR No parent found for  %s (%s) in OSM", name_en(obj), obj['OSM_ID'])
             continue
         elif len(parent_osm_id) > 1:
-            logger.debug("Found %d (%s) parents for obj %s (%s) in OSM", len(parent_osm_id), ",".join(parent_osm_id), name_en(obj), obj['OSM_ID'])
+            logger.debug("OK Found %d (%s) parents for obj %s (%s) in OSM", len(parent_osm_id), ",".join(parent_osm_id), name_en(obj), obj['OSM_ID'])
             continue
         elif len(parent_osm_id) == 1:
             parent_osm_id = parent_osm_id.pop()
             try:
                 parent_logainm_id = osmid_to_logainm_ref(logainm_data, parent_osm_id)
-                logger.debug("obj %s (%s) is in parent %s in OSM which is logainm id %s", name_en(obj), obj['OSM_ID'], parent_osm_id, parent_logainm_id)
+                logger.debug("OK obj %s (%s) is in parent %s in OSM which is logainm id %s", name_en(obj), obj['OSM_ID'], parent_osm_id, parent_logainm_id)
             except IndexError:
-                logger.debug("obj %s (%s) is in parent %s in OSM which has no known logainm", name_en(obj), obj['OSM_ID'], parent_osm_id)
+                logger.error("ERROR obj %s (%s) is in parent %s in OSM which has no known logainm", name_en(obj), obj['OSM_ID'], parent_osm_id)
                 continue
         else:
             assert False
@@ -152,11 +152,11 @@ def hierachial_matchup(logainm_data, cursor, key, obj_logainm_code, parent_logai
         data = cursor.fetchall()
         data_str = ", ".join(x[0] for x in data)
         if len(data) == 0:
-            logger.debug("obj %s (%s) is in parent OSM:%s (logainm:%s) has no children in logainm for this name", name_en(obj), obj['OSM_ID'], parent_osm_id, parent_logainm_id)
+            logger.error("ERROR obj %s (%s) is in parent OSM:%s (logainm:%s) has no children in logainm for this name", name_en(obj), obj['OSM_ID'], parent_osm_id, parent_logainm_id)
         elif len(data) > 1:
-            logger.debug("obj %s (%s) is in parent OSM:%s (logainm:%s) has >1 children in logainm for this name, children: %s", name_en(obj), obj['OSM_ID'], parent_osm_id, parent_logainm_id, data_str)
+            logger.error("ERROR obj %s (%s) is in parent OSM:%s (logainm:%s) has >1 children in logainm for this name, children: %s", name_en(obj), obj['OSM_ID'], parent_osm_id, parent_logainm_id, data_str)
         elif len(data) == 1:
-            logger.debug("obj %s (%s) is in parent OSM:%s (logainm:%s) has 1 child in logainm for this name, children: %s", name_en(obj), obj['OSM_ID'], parent_osm_id, parent_logainm_id, data_str)
+            logger.info("OK obj %s (%s) is in parent OSM:%s (logainm:%s) has 1 child in logainm for this name, children: %s", name_en(obj), obj['OSM_ID'], parent_osm_id, parent_logainm_id, data_str)
             # remove leading '-' character
             results[('relation', obj['OSM_ID'][1:])] = get_logainm_tags(cursor, data[0][0])
         else:
