@@ -128,6 +128,7 @@ def hierachial_matchup(logainm_data, cursor, key, obj_logainm_code, parent_logai
     logger.info("Found %d %s without logainm ref", len(possibles), key)
 
     for obj in possibles:
+        logger.debug("Starting to look at %s %s (osm:%s)", key, name_en(obj), obj['OSM_ID'])
         parent_osm_id = parent_osmid_for_obj_osmid(logainm_data, obj['OSM_ID'], obj_key, parent_key)
         if len(parent_osm_id) == 0:
             logger.error("ERROR No parent found for %s %s (%s) in OSM", key, name_en(obj), obj['OSM_ID'])
