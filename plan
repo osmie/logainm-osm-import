@@ -2,17 +2,19 @@
 
 Logainm, which is the Irish for "place name", is the website of the Bunachar Logainmneacha na hÉireann (Placenames Database of Ireland). They recently released their data under ODbL, and the goal is to import as much as possible.
 
-We want to add the offical irish name (name:ga), offical english name (name:en), and the logainm reference code to Irish administrative boundaries (townlands (admin_level=10), EDs (admin_level=9), Counties (admin_level=6 and 7), subtownlands (place=locality, locality=subtownland), civil parishes (boundary=civil_parish) and baronies (boundary=barony)).
+We want to add the offical irish name ({{Tag|name|subkey=ga}}), offical english name ({{Tag|name|subkey=en}}), and the logainm reference code to Irish administrative boundaries (townlands ({{Tag|admin_level|10}}), EDs ({{Tag|admin_level|9}}), Counties ({{Tag|admin_level|6}} and {{tag|admin_level|7}}), subtownlands ({{tag|place|locality}}, {{tag|locality||subtownland}}), civil parishes ({{tag|boundary||civil_parish}}) and baronies ({{tag|boundary||barony}})).
 
 This will radically improve the coverage of Irish names for administrative boundaries in OSM. It will also allow 2 databases (OSM & Logainm) to be cross-referenced.
 
+The data will be uploaded for the entire island of Ireland (i.e. Republic of Ireland and Northern Ireland), although logainm data seems to be very sparse in NI.
+
 ==Community support==
 
-I, (Rorym), plan to do the import, and am an active member of the Irish OpenStreetMap community, I'm an active mapper of townlands, and have made a website, townlands.ie, which shows the current townland coverage and has various QA tools for townland mapping. The rest of the Irish OSM community is in favour of this. [https://lists.openstreetmap.org/pipermail/talk-ie/2014-October/000715.html talk-ie thread with much approval]
+I, ([[User:Rorym]]), plan to do the import using the import account [https://www.openstreetmap.org/user/rorym_import_logainm rorym_import_logainm], and am an active member of the [[WikiProject Ireland|Irish OpenStreetMap community]], I'm an active mapper of townlands, and have made a website, [http://www.townlands.ie townlands.ie], which shows the current townland coverage and has various QA tools for townland mapping. The rest of the Irish OSM community is in favour of this. [https://lists.openstreetmap.org/pipermail/talk-ie/2014-October/000715.html talk-ie thread with much approval]
 
 == Schedule==
 
-As soon as approval has been given, and at regular intervals after that.
+They import will be run as soon as approval has been given, and at regular intervals after that.
 
 The Irish OSM community is currently mapping townlands (etc.), and is about 80% done. We expect to be done in a year. Hence this will be a semi-continuous import process, which will be occassionally run to update the OSM data that has been added since the last run. Additional runs should be considered part of this import.
 
@@ -20,14 +22,39 @@ The Irish OSM community is currently mapping townlands (etc.), and is about 80% 
 
 ===Background===
 
-'''Data source site:''' Bunachar Logainmneacha na hÉireann (Placenames Database of Ireland) [http://www.logainm.ie/ Logainm.ie]. I have [http://www.logainm.ie/en/inf/proj-machines followed their instructions] and have [http://www.technomancy.org/logainm/ downloaded the full data].
-'''Data license:''' ODbL v1.0 ( http://www.logainm.ie/en/inf/proj-xml )
-'''OSM attribution (if required):''' N/A
-'''ODbL Compliance verified:''' yes
+* '''Data source site:''' Bunachar Logainmneacha na hÉireann (Placenames Database of Ireland) [http://www.logainm.ie/ Logainm.ie]. I have [http://www.logainm.ie/en/inf/proj-machines followed their instructions] and have [http://www.technomancy.org/logainm/ downloaded the full data].
+* '''Data license:''' ODbL v1.0 ( http://www.logainm.ie/en/inf/proj-xml )
+* '''OSM attribution (if required):''' not required
+* '''ODbL Compliance verified:''' yes
+
+===Data Description===
+
+Logainm consists of a Semantic Web/RDF data file. Each object has an id, english and irish name, category, optional lat/lon coords, and optional list of 'child objects', based on geographic contains. i.e. "Barony X is within county Y".
+
+We are not using the geographic coordinates from Logainm, only the hierarchy data.
+
+Logainm contains many types of data, like mountains, caves, towns. However we are only going to use the administrative baronies/objects (counties, baronies, civil parishes, EDs, townlands and sub-townlands). All of those (bar sub-townlands) are mapped in OSM as polygons. Subtownlands are points in OSM.
+
+We have already manually added [http://www.townlands.ie/progress/#logainm Logainm data to many high level objects in OSM]. [http://www.townlands.ie/en/page/download/ Townlands.ie provides analysis of these boundaries from OSM], and does spatial queries to "match up" an admin level with it's parent admin level. By using the <code>logainm:ref</code> tag of the parent OSM object, and the english name, we plan to find the corresponding logainm object.
 
 ===OSM Data Files===
 
-Not created yet.
+This will be a semi-continuous upload, which will be intermittently rerun because the Irish mapping community is continuously adding new boundaries (about 100 per day), and later runs will process these new boundaries, and possibly tighten the code to cover more of the existing, unmatched, boundaries.
+
+The first data change can be downloaded from [http://www.technomancy.org/openstreetmap/logainm-import/logainm-import-data-2016-02-24.tar.lzma here]
+
+boundaries.osm.xml is the existing data. It's a filtered set of data from the Ireland extract. [https://github.com/osmie/logainm-osm-import/blob/b8ffdba749ac6d96622a54f9929224a44744047a/Makefile#L18 created here], and new-boundaries.osm.xml is what would be uploaded. [https://github.com/osmie/logainm-osm-import/blob/b8ffdba749ac6d96622a54f9929224a44744047a/Makefile#L22 It's created here].
+
+====Generate it yourself====
+
+The [https://github.com/osmie/logainm-osm-import code for processing it is on Github]. You can download that code and create the data with these commands:
+
+
+ git clone https://github.com/osmie/logainm-osm-import
+ cd logainm-osm-import
+ make new-boundaries.osm.xml
+
+That will download all the required data files. The Logainm data will not change (except in exceptional circumstances), the Irish planet file from [http://planet.openstreetmap.ie] is downloaded and that updates every 15 minutes. The [http://www.townlands.ie/pages/download/ data extracts from Townlands.ie] are used as well. [http://www.townlands.ie Townlands.ie] is a site created and maintained by [[User:rorym]] (this importer). It processes data from Ireland to match up the admin bounds with each other to produce a hiearchy that is used in this import script.
 
 ===Import Type===
 
@@ -37,34 +64,39 @@ JOSM upload will be used.
 
 ==Data Preparation==
 
+
 ===Data Reduction & Simplification===
 
 There is no need to simplify or reduce the data.
 
 ===Tagging Plans===
 
-{|
+{| class="wikitable"
 !OSM Tag
 !Source
 !Justification
 |-
-|logainm:ref
+|<code>logainm:ref</code>
 |Logainm numeric ID
 |Allows one to cross reference OSM data with Logainm at a later date
 |-
-|name:ga
+|<code>logainm:url</code>
+|Logainm numeric ID
+|Allows one to easily get the URL of this object on Logainm.
+|-
+|<code>name:ga</code>
 |Logainm Irish name
 |If the object in OSM doesn't have an Irish name, we'll use the one from Logainm
 |-
-|name:en
+|<code>name:en</code>
 |Logainm English name
 |If there is no name:en for an object, we'll use the logianm one
 |-
-|offical_name:en
+|<code>official_name:en</code>
 |Logainm English Name
 |If the name (or name:en) is different from logain, we'll use this as the "offical name"
 |-
-|offical_name:ga
+|<code>official_name:ga</code>
 |Logainm Irish Name
 |If the name:ga already in OSM is different from logainm, we'll use this as the offical name
 |}
@@ -73,39 +105,19 @@ There is no need to simplify or reduce the data.
 
 We will add these changeset tags
 
-{|
-|source
-|logainm.ie
-|-
-|comment
-|Import of Logainm data
-|}
+* {{tag|source||logainm.ie}}
+* {{tag|comment||Import of Logainm data}}
+* {{tag|import|yes}}
 
 ===Data Transformation===
 
-[https://github.com/rory/logainm-osm-import Code will be hosted here]
+[https://github.com/osmie/logainm-osm-import Code is hosted here, on the OSM-Ireland Github account]
 
 ===Data Transformation Results===
 
-Not created yet.
+<code>new-boundaries.osm.xml</code> from [http://www.technomancy.org/openstreetmap/logainm-import/logainm-import-data-2016-02-24.tar.lzma this zipfile]
 
 ==Data Merge Workflow==
-
-===Team Approach===
-
-Most coding and uploading will be done by rorym, but advice will be sought from the OSM-IE community.
-
-===References===
-
-List all factors that will be evaluated in the import.
-
-===Workflow===
-
-* Download current OSM data for the objects to be updated
-* Match up logainm details and edit XML file
-* Open in JOSM and upload
-
-===Conflation===
 
 Since this import will only add tags to existing OSM objects (rather than add new OSM objects), there is no chance of duplication.
 
@@ -113,7 +125,6 @@ When looking at the OSM objects, which already has a (say) a name:ga tag, the so
 
 ==QA==
 
-OSM-IE has created [www.townlands.ie Townlands.ie], which is used to help track mapping of townlands, and for QA of the mapped data. We can add features to this.
+OSM-IE has created [http://www.townlands.ie Townlands.ie], which is used to help track mapping of townlands, and for QA of the mapped data. We can add features to this.
 
 [[Category:Import]]
-
