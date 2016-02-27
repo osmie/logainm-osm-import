@@ -134,7 +134,7 @@ def hierachial_matchup(logainm_data, cursor, key, obj_logainm_code, parent_logai
             logger.error("ERROR No parent found for %s %s (%s) in OSM", key, name_en(obj), obj['OSM_ID'])
             continue
         elif len(parent_osm_id) > 1:
-            logger.debug("OK Found %s (%s) parents for %s %s (%s) in OSM", len(parent_osm_id), ",".join(parent_osm_id), key, name_en(obj), obj['OSM_ID'])
+            logger.error("ERROR Found %s (%s) parents for %s %s (%s) in OSM", len(parent_osm_id), ",".join(parent_osm_id), key, name_en(obj), obj['OSM_ID'])
             continue
         elif len(parent_osm_id) == 1:
             parent_osm_id = parent_osm_id.pop()
@@ -164,7 +164,7 @@ def hierachial_matchup(logainm_data, cursor, key, obj_logainm_code, parent_logai
             assert False
 
 
-    logger.info("Found %d (%s%%) candidates", len(results), (len(results)*100)/len(possibles))
+    logger.info("Matched up %d of %d (%s%%)", len(results), len(possibles), (len(results)*100)/len(possibles))
     return results
 
 
