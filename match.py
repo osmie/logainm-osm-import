@@ -139,9 +139,9 @@ def hierachial_matchup(logainm_data, cursor, key, obj_logainm_code, parent_logai
             parent_osm_id = parent_osm_id.pop()
             try:
                 parent_logainm_id = osmid_to_logainm_ref(logainm_data, parent_osm_id)
-                logger.debug("obj %s is in parent %s which is logainm id %s", name_en(obj), parent_osm_id, parent_logainm_id)
+                logger.debug("obj %s (%s) is in parent %s which is logainm id %s", name_en(obj), obj['OSM_ID'], parent_osm_id, parent_logainm_id)
             except IndexError:
-                logger.debug("obj %s is in parent %s which has no known logainm", name_en(obj), parent_osm_id)
+                logger.debug("obj %s (%s) is in parent %s which has no known logainm", name_en(obj), obj['OSM_ID'], parent_osm_id)
                 continue
         else:
             assert False
@@ -174,11 +174,15 @@ def main():
     parser.add_argument("--baronies", action="store_true")
     parser.add_argument("--civil-parishes", action="store_true")
     parser.add_argument("--townlands", action="store_true")
+    parser.add_argument("-v", "--verbose", action="store_true")
 
     args = parser.parse_args()
 
     ch = logging.StreamHandler(sys.stdout)
-    ch.setLevel(logging.DEBUG)
+    if args.verbose:
+        ch.setLevel(logging.DEBUG)
+    else:
+        ch.setLevel(logging.INFO)
     formatter = logging.Formatter('%(asctime)s - %(levelname)s - %(message)s')
     ch.setFormatter(formatter)
     logger.addHandler(ch)
@@ -186,7 +190,7 @@ def main():
     conn = sqlite3.connect("logainm.sqlite")
     cursor = conn.cursor()
 
-    logger.setLevel(logging.INFO)
+    logger.setLevel(logging.DEBUG)
 
     logainm_data = read_logainm_data()
 
