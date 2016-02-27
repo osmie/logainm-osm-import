@@ -146,8 +146,8 @@ def hierachial_matchup(logainm_data, cursor, key, obj_logainm_code, parent_logai
         else:
             assert False
 
-        # Now we have the logainm ref of the parent that this CP is in.
-        # Look at the logainm data for the CPs in that bar
+        # Now we have the logainm ref of the parent that this obj is in.
+        # Look at the logainm data for the objs in that bar
         cursor.execute("select obj.logainm_id from names as parent join geometric_contains as con on (parent.logainm_id = con.outer_obj_id) join names as obj on (obj.logainm_id = con.inner_obj_id) where parent.logainm_category_code = ? and obj.logainm_category_code = ? and parent.logainm_id = ? and obj.name_en = ?;", [parent_logainm_code, obj_logainm_code, parent_logainm_id, name_en(obj)])
         data = cursor.fetchall()
         if len(data) == 0:
