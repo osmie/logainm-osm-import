@@ -36,14 +36,14 @@ def logainm_tags(xml_el, logainm_data):
             new_tags['name:ga'] = logainm_data['name_ga']
         else:
             if tags['name:ga'] != logainm_data['name_ga']:
-                new_tags['offical_name:ga'] = logainm_data['name_ga']
+                new_tags['official_name:ga'] = logainm_data['name_ga']
 
     if logainm_data['name_en'] not in ["", None]:
         if 'name:en' not in tags:
             new_tags['name:en'] = logainm_data['name_en']
         else:
             if tags['name:en'] != logainm_data['name_en']:
-                new_tags['offical_name:en'] = logainm_data['name_en']
+                new_tags['official_name:en'] = logainm_data['name_en']
 
     return new_tags
 
