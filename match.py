@@ -177,6 +177,7 @@ def main():
     parser.add_argument("--civil-parishes", action="store_true")
     parser.add_argument("--townlands", action="store_true")
     parser.add_argument("-v", "--verbose", action="store_true")
+    parser.add_argument("-n", "--dry-run", action="store_true")
 
     args = parser.parse_args()
 
@@ -207,6 +208,8 @@ def main():
     if args.townlands:
         logainm_candidates.update(townlands_matchup(logainm_data, cursor))
 
+    if args.dry_run:
+        return
     # read in OSM XML
     with printer("reading in OSM XML"):
         tree = ET.parse(args.input)
