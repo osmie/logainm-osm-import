@@ -98,8 +98,14 @@ def read_logainm_data():
 
     return results
 
-def osmid_to_logainm_ref(logainm_data, osm_id):
-    result = logainm_data['index']['osmid_to_logainm_ref'][osm_id]
+def osmid_to_logainm_ref(logainm_data, osm_id, existing_match_ups):
+    try:
+        result = logainm_data['index']['osmid_to_logainm_ref'][osm_id]
+    except (KeyError, IndexError):
+        # is this already seen on a higher level match up?
+        # [1:] to remove the -
+        result = existing_match_ups[('relation', osm_id[1:])]['logainm_id']
+        logger.debug("Found a Logainm id (%s) for %s based on a previous match up", result, osm_id)
     return result
 
 def barony_osmid_for_civil_parish_osmid(logainm_data, civil_parish_id):
@@ -109,25 +115,29 @@ def parent_osmid_for_obj_osmid(logainm_data, obj_osmid, obj_key, parent_key):
     result = logainm_data['index'][obj_key][parent_key][obj_osmid]
     return result
 
-def baronies_matchup(logainm_data, cursor):
+def baronies_matchup(logainm_data, cursor, existing_match_ups):
     return hierachial_matchup(logainm_data, cursor,
                 key='baronies', obj_logainm_code="BAR", parent_logainm_code='CON',
-                obj_key="BAR_OSM_ID", parent_key="CO_OSM_ID"
+                obj_key="BAR_OSM_ID", parent_key="CO_OSM_ID",
+                existing_match_ups=existing_match_ups,
          )
 
-def civil_parish_matchup(logainm_data, cursor):
+def civil_parish_matchup(logainm_data, cursor, existing_match_ups):
     return hierachial_matchup(logainm_data, cursor,
                 key='civil_parishes', obj_logainm_code="PAR", parent_logainm_code='BAR',
-                obj_key="CP_OSM_ID", parent_key="BAR_OSM_ID"
+                obj_key="CP_OSM_ID", parent_key="BAR_OSM_ID",
+                existing_match_ups=existing_match_ups,
          )
 
-def townlands_matchup(logainm_data, cursor):
+def townlands_matchup(logainm_data, cursor, existing_match_ups):
     return hierachial_matchup(logainm_data, cursor,
                 key='townlands', obj_logainm_code="BF", parent_logainm_code='PAR',
-                obj_key="OSM_ID", parent_key="CP_OSM_ID"
+                obj_key="OSM_ID", parent_key="CP_OSM_ID",
+                existing_match_ups=existing_match_ups,
          )
 
-def hierachial_matchup(logainm_data, cursor, key, obj_logainm_code, parent_logainm_code, obj_key, parent_key):
+def hierachial_matchup(logainm_data, cursor, key, obj_logainm_code, parent_logainm_code, obj_key, parent_key, existing_match_ups=None):
+    existing_match_ups = existing_match_ups or {}
     logger.info("Have %d %s in total", len(logainm_data[key]), key)
     results = {}
 
@@ -146,7 +156,7 @@ def hierachial_matchup(logainm_data, cursor, key, obj_logainm_code, parent_logai
         elif len(parent_osm_id) == 1:
             parent_osm_id = parent_osm_id.pop()
             try:
-                parent_logainm_id = osmid_to_logainm_ref(logainm_data, parent_osm_id)
+                parent_logainm_id = osmid_to_logainm_ref(logainm_data, parent_osm_id, existing_match_ups)
                 if ";" in parent_logainm_id:
                     logger.error("ERROR %s %s (%s) is in parent %s in OSM which is many logainms: %s", key, name_en(obj), obj['OSM_ID'], parent_osm_id, parent_logainm_id)
                     continue
@@ -213,13 +223,13 @@ def main():
     logainm_candidates = {}
 
     if args.baronies:
-        logainm_candidates.update(baronies_matchup(logainm_data, cursor))
+        logainm_candidates.update(baronies_matchup(logainm_data, cursor, logainm_candidates))
 
     if args.civil_parishes:
-        logainm_candidates.update(civil_parish_matchup(logainm_data, cursor))
+        logainm_candidates.update(civil_parish_matchup(logainm_data, cursor, logainm_candidates))
 
     if args.townlands:
-        logainm_candidates.update(townlands_matchup(logainm_data, cursor))
+        logainm_candidates.update(townlands_matchup(logainm_data, cursor, logainm_candidates))
 
     if args.dry_run:
         return
