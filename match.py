@@ -191,7 +191,7 @@ def hierachial_matchup(logainm_data, cursor, key, obj_logainm_code, parent_logai
             assert False
 
 
-    logger.info("Matched up %d of %d (%s%%)", len(results), len(possibles), (len(results)*100)/len(possibles))
+    logger.info("Matched up %d %s of %d (%s%%)", len(results), key, len(possibles), (len(results)*100)/len(possibles))
     return results
 
 
