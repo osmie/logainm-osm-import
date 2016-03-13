@@ -31,25 +31,29 @@ def logainm_tags(xml_el, logainm_data):
         'logainm:url': 'http://www.logainm.ie/en/{}'.format(logainm_data['logainm_id'])
     }
 
+    # Not adding official_name:XX tags because that is not accurate for NI.
+
     if logainm_data['name_ga'] not in ["", None]:
         if 'name:ga' not in tags:
             new_tags['name:ga'] = logainm_data['name_ga']
         else:
-            if tags['name:ga'] != logainm_data['name_ga']:
-                new_tags['official_name:ga'] = logainm_data['name_ga']
+            pass
+            #if tags['name:ga'] != logainm_data['name_ga']:
+            #    new_tags['official_name:ga'] = logainm_data['name_ga']
 
     if logainm_data['name_en'] not in ["", None]:
         if 'name:en' not in tags:
             new_tags['name:en'] = logainm_data['name_en']
         else:
-            if tags['name:en'] != logainm_data['name_en']:
-                new_tags['official_name:en'] = logainm_data['name_en']
+            pass
+            #if tags['name:en'] != logainm_data['name_en']:
+            #    new_tags['official_name:en'] = logainm_data['name_en']
 
-    if 'official_name:en' not in tags:
-        new_tags['official_name:en'] = logainm_data['name_en']
+    #if 'official_name:en' not in tags:
+    #    new_tags['official_name:en'] = logainm_data['name_en']
 
-    if 'official_name:ga' not in tags:
-        new_tags['official_name:ga'] = logainm_data['name_ga']
+    #if 'official_name:ga' not in tags:
+    #    new_tags['official_name:ga'] = logainm_data['name_ga']
 
     return new_tags
 
