@@ -247,6 +247,10 @@ def main():
         for rel in root.iter("relation"):
             osm_id = rel.get("id", None)
             if ('relation', osm_id) in logainm_candidates:
+
+                # This tag is needed so JOSM knows to upload it
+                rel.set("action", "modify")
+
                 logging.debug("Adding tags to OSM_ID %d", osm_id)
                 logaimn_data = logainm_candidates[('relation', osm_id)]
                 for k, v in logainm_tags(rel, logaimn_data).items():
