@@ -40,3 +40,6 @@ logainm-csvs/logainm_names.csv: logainm-csvs.zip
 logainm.sqlite: logainm-csvs/logainm_names.csv
 	-rm -f logainm.sqlite
 	cat csv2sqlite.sql | sqlite3 logainm.sqlite
+
+lint: boundaries.osm.xml
+	python logainm_lint.py -i boundaries.osm.xml --dupe-logainm-ref
