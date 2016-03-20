@@ -1,0 +1,484 @@
+python logainm_lint.py -i boundaries.osm.xml --dupe-logainm-ref
+2016-03-20 14:24:43,797	INFO	L70	Starting
+2016-03-20 14:24:43,797	INFO	L16	Started reading in OSM XML
+2016-03-20 14:24:55,216	INFO	L18	Finished reading in OSM XML
+2016-03-20 14:24:56,230	INFO	L38	logainm:ref=60251 for these 2 OSM relations: 3561710, 3564301
+2016-03-20 14:24:56,230	INFO	L39	View on logainm: http://logainm.ie/en/60251
+2016-03-20 14:24:56,230	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/3561710
+2016-03-20 14:24:56,230	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/3564301
+2016-03-20 14:24:56,230	INFO	L38	logainm:ref=37889 for these 2 OSM relations: 4538959, 4538880
+2016-03-20 14:24:56,231	INFO	L39	View on logainm: http://logainm.ie/en/37889
+2016-03-20 14:24:56,231	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/4538959
+2016-03-20 14:24:56,231	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/4538880
+2016-03-20 14:24:56,231	INFO	L38	logainm:ref=25320 for these 2 OSM relations: 4197584, 4236360
+2016-03-20 14:24:56,231	INFO	L39	View on logainm: http://logainm.ie/en/25320
+2016-03-20 14:24:56,231	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/4197584
+2016-03-20 14:24:56,231	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/4236360
+2016-03-20 14:24:56,231	INFO	L38	logainm:ref=41177 for these 2 OSM relations: 4256488, 4247726
+2016-03-20 14:24:56,231	INFO	L39	View on logainm: http://logainm.ie/en/41177
+2016-03-20 14:24:56,231	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/4256488
+2016-03-20 14:24:56,231	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/4247726
+2016-03-20 14:24:56,231	INFO	L38	logainm:ref=21150 for these 2 OSM relations: 5577111, 5577110
+2016-03-20 14:24:56,231	INFO	L39	View on logainm: http://logainm.ie/en/21150
+2016-03-20 14:24:56,231	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/5577111
+2016-03-20 14:24:56,231	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/5577110
+2016-03-20 14:24:56,231	INFO	L38	logainm:ref=19342 for these 2 OSM relations: 5121471, 5303776
+2016-03-20 14:24:56,231	INFO	L39	View on logainm: http://logainm.ie/en/19342
+2016-03-20 14:24:56,231	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/5121471
+2016-03-20 14:24:56,231	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/5303776
+2016-03-20 14:24:56,231	INFO	L38	logainm:ref=38776 for these 2 OSM relations: 4628428, 4630069
+2016-03-20 14:24:56,231	INFO	L39	View on logainm: http://logainm.ie/en/38776
+2016-03-20 14:24:56,231	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/4628428
+2016-03-20 14:24:56,231	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/4630069
+2016-03-20 14:24:56,231	INFO	L38	logainm:ref=32987 for these 2 OSM relations: 2300995, 2338575
+2016-03-20 14:24:56,231	INFO	L39	View on logainm: http://logainm.ie/en/32987
+2016-03-20 14:24:56,232	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/2300995
+2016-03-20 14:24:56,232	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/2338575
+2016-03-20 14:24:56,232	INFO	L38	logainm:ref=19574 for these 2 OSM relations: 5310156, 5234197
+2016-03-20 14:24:56,232	INFO	L39	View on logainm: http://logainm.ie/en/19574
+2016-03-20 14:24:56,232	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/5310156
+2016-03-20 14:24:56,232	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/5234197
+2016-03-20 14:24:56,232	INFO	L38	logainm:ref=7284 for these 2 OSM relations: 4165969, 4165988
+2016-03-20 14:24:56,232	INFO	L39	View on logainm: http://logainm.ie/en/7284
+2016-03-20 14:24:56,232	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/4165969
+2016-03-20 14:24:56,232	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/4165988
+2016-03-20 14:24:56,232	INFO	L38	logainm:ref=3402 for these 2 OSM relations: 2282384, 2256450
+2016-03-20 14:24:56,232	INFO	L39	View on logainm: http://logainm.ie/en/3402
+2016-03-20 14:24:56,232	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/2282384
+2016-03-20 14:24:56,232	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/2256450
+2016-03-20 14:24:56,232	INFO	L38	logainm:ref=36519 for these 2 OSM relations: 5679108, 5687655
+2016-03-20 14:24:56,232	INFO	L39	View on logainm: http://logainm.ie/en/36519
+2016-03-20 14:24:56,232	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/5679108
+2016-03-20 14:24:56,232	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/5687655
+2016-03-20 14:24:56,232	INFO	L38	logainm:ref=38887 for these 2 OSM relations: 4240786, 4240785
+2016-03-20 14:24:56,232	INFO	L39	View on logainm: http://logainm.ie/en/38887
+2016-03-20 14:24:56,232	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/4240786
+2016-03-20 14:24:56,232	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/4240785
+2016-03-20 14:24:56,232	INFO	L38	logainm:ref=3237 for these 2 OSM relations: 2277870, 2230187
+2016-03-20 14:24:56,232	INFO	L39	View on logainm: http://logainm.ie/en/3237
+2016-03-20 14:24:56,232	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/2277870
+2016-03-20 14:24:56,232	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/2230187
+2016-03-20 14:24:56,233	INFO	L38	logainm:ref=52215 for these 2 OSM relations: 2406121, 2406122
+2016-03-20 14:24:56,233	INFO	L39	View on logainm: http://logainm.ie/en/52215
+2016-03-20 14:24:56,233	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/2406121
+2016-03-20 14:24:56,233	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/2406122
+2016-03-20 14:24:56,233	INFO	L38	logainm:ref=3484 for these 2 OSM relations: 2283796, 2193655
+2016-03-20 14:24:56,233	INFO	L39	View on logainm: http://logainm.ie/en/3484
+2016-03-20 14:24:56,233	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/2283796
+2016-03-20 14:24:56,233	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/2193655
+2016-03-20 14:24:56,233	INFO	L38	logainm:ref=3109 for these 2 OSM relations: 2277497, 2192819
+2016-03-20 14:24:56,233	INFO	L39	View on logainm: http://logainm.ie/en/3109
+2016-03-20 14:24:56,233	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/2277497
+2016-03-20 14:24:56,233	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/2192819
+2016-03-20 14:24:56,233	INFO	L38	logainm:ref=1295 for these 2 OSM relations: 5330881, 5331080
+2016-03-20 14:24:56,233	INFO	L39	View on logainm: http://logainm.ie/en/1295
+2016-03-20 14:24:56,233	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/5330881
+2016-03-20 14:24:56,233	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/5331080
+2016-03-20 14:24:56,233	INFO	L38	logainm:ref=45465 for these 2 OSM relations: 4188008, 4188009
+2016-03-20 14:24:56,233	INFO	L39	View on logainm: http://logainm.ie/en/45465
+2016-03-20 14:24:56,233	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/4188008
+2016-03-20 14:24:56,233	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/4188009
+2016-03-20 14:24:56,233	INFO	L38	logainm:ref=1158 for these 2 OSM relations: 2029833, 4136076
+2016-03-20 14:24:56,233	INFO	L39	View on logainm: http://logainm.ie/en/1158
+2016-03-20 14:24:56,233	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/2029833
+2016-03-20 14:24:56,233	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/4136076
+2016-03-20 14:24:56,233	INFO	L38	logainm:ref=857 for these 2 OSM relations: 4548654, 4546900
+2016-03-20 14:24:56,233	INFO	L39	View on logainm: http://logainm.ie/en/857
+2016-03-20 14:24:56,234	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/4548654
+2016-03-20 14:24:56,234	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/4546900
+2016-03-20 14:24:56,234	INFO	L38	logainm:ref=55953 for these 2 OSM relations: 4172178, 4495616
+2016-03-20 14:24:56,234	INFO	L39	View on logainm: http://logainm.ie/en/55953
+2016-03-20 14:24:56,234	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/4172178
+2016-03-20 14:24:56,234	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/4495616
+2016-03-20 14:24:56,234	INFO	L38	logainm:ref=58644 for these 2 OSM relations: 5153889, 5153895
+2016-03-20 14:24:56,234	INFO	L39	View on logainm: http://logainm.ie/en/58644
+2016-03-20 14:24:56,234	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/5153889
+2016-03-20 14:24:56,234	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/5153895
+2016-03-20 14:24:56,234	INFO	L38	logainm:ref=3349 for these 2 OSM relations: 2281184, 2192338
+2016-03-20 14:24:56,234	INFO	L39	View on logainm: http://logainm.ie/en/3349
+2016-03-20 14:24:56,234	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/2281184
+2016-03-20 14:24:56,234	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/2192338
+2016-03-20 14:24:56,234	INFO	L38	logainm:ref=3344 for these 2 OSM relations: 2280641, 2246961
+2016-03-20 14:24:56,234	INFO	L39	View on logainm: http://logainm.ie/en/3344
+2016-03-20 14:24:56,234	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/2280641
+2016-03-20 14:24:56,234	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/2246961
+2016-03-20 14:24:56,234	INFO	L38	logainm:ref=29926 for these 2 OSM relations: 5608189, 4297072
+2016-03-20 14:24:56,234	INFO	L39	View on logainm: http://logainm.ie/en/29926
+2016-03-20 14:24:56,234	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/5608189
+2016-03-20 14:24:56,234	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/4297072
+2016-03-20 14:24:56,234	INFO	L38	logainm:ref=57420 for these 2 OSM relations: 4457663, 4455062
+2016-03-20 14:24:56,234	INFO	L39	View on logainm: http://logainm.ie/en/57420
+2016-03-20 14:24:56,234	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/4457663
+2016-03-20 14:24:56,234	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/4455062
+2016-03-20 14:24:56,234	INFO	L38	logainm:ref=18551 for these 2 OSM relations: 3888052, 3853616
+2016-03-20 14:24:56,234	INFO	L39	View on logainm: http://logainm.ie/en/18551
+2016-03-20 14:24:56,234	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/3888052
+2016-03-20 14:24:56,234	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/3853616
+2016-03-20 14:24:56,234	INFO	L38	logainm:ref=17555 for these 2 OSM relations: 5362274, 3668090
+2016-03-20 14:24:56,235	INFO	L39	View on logainm: http://logainm.ie/en/17555
+2016-03-20 14:24:56,235	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/5362274
+2016-03-20 14:24:56,235	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/3668090
+2016-03-20 14:24:56,235	INFO	L38	logainm:ref=38324 for these 2 OSM relations: 4664654, 4706386
+2016-03-20 14:24:56,235	INFO	L39	View on logainm: http://logainm.ie/en/38324
+2016-03-20 14:24:56,235	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/4664654
+2016-03-20 14:24:56,235	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/4706386
+2016-03-20 14:24:56,235	INFO	L38	logainm:ref=3150 for these 2 OSM relations: 2191734, 2279796
+2016-03-20 14:24:56,235	INFO	L39	View on logainm: http://logainm.ie/en/3150
+2016-03-20 14:24:56,235	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/2191734
+2016-03-20 14:24:56,235	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/2279796
+2016-03-20 14:24:56,235	INFO	L38	logainm:ref=1160 for these 2 OSM relations: 4214008, 5816578
+2016-03-20 14:24:56,235	INFO	L39	View on logainm: http://logainm.ie/en/1160
+2016-03-20 14:24:56,235	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/4214008
+2016-03-20 14:24:56,235	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/5816578
+2016-03-20 14:24:56,235	INFO	L38	logainm:ref=19250 for these 2 OSM relations: 4668659, 4666725
+2016-03-20 14:24:56,235	INFO	L39	View on logainm: http://logainm.ie/en/19250
+2016-03-20 14:24:56,235	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/4668659
+2016-03-20 14:24:56,235	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/4666725
+2016-03-20 14:24:56,235	INFO	L38	logainm:ref=45062 for these 2 OSM relations: 3515000, 4174028
+2016-03-20 14:24:56,235	INFO	L39	View on logainm: http://logainm.ie/en/45062
+2016-03-20 14:24:56,235	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/3515000
+2016-03-20 14:24:56,235	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/4174028
+2016-03-20 14:24:56,235	INFO	L38	logainm:ref=42303 for these 2 OSM relations: 4197909, 4179836
+2016-03-20 14:24:56,235	INFO	L39	View on logainm: http://logainm.ie/en/42303
+2016-03-20 14:24:56,235	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/4197909
+2016-03-20 14:24:56,235	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/4179836
+2016-03-20 14:24:56,235	INFO	L38	logainm:ref=826 for these 2 OSM relations: 5421962, 5459038
+2016-03-20 14:24:56,235	INFO	L39	View on logainm: http://logainm.ie/en/826
+2016-03-20 14:24:56,235	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/5421962
+2016-03-20 14:24:56,235	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/5459038
+2016-03-20 14:24:56,235	INFO	L38	logainm:ref=19251 for these 2 OSM relations: 4666984, 4666769
+2016-03-20 14:24:56,235	INFO	L39	View on logainm: http://logainm.ie/en/19251
+2016-03-20 14:24:56,236	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/4666984
+2016-03-20 14:24:56,236	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/4666769
+2016-03-20 14:24:56,236	INFO	L38	logainm:ref=3465 for these 2 OSM relations: 2304666, 2267191
+2016-03-20 14:24:56,236	INFO	L39	View on logainm: http://logainm.ie/en/3465
+2016-03-20 14:24:56,236	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/2304666
+2016-03-20 14:24:56,236	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/2267191
+2016-03-20 14:24:56,236	INFO	L38	logainm:ref=3469 for these 3 OSM relations: 2198932, 2280539, 2280538
+2016-03-20 14:24:56,236	INFO	L39	View on logainm: http://logainm.ie/en/3469
+2016-03-20 14:24:56,236	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/2198932
+2016-03-20 14:24:56,236	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/2280539
+2016-03-20 14:24:56,236	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/2280538
+2016-03-20 14:24:56,236	INFO	L38	logainm:ref=19495 for these 2 OSM relations: 5303473, 5303444
+2016-03-20 14:24:56,236	INFO	L39	View on logainm: http://logainm.ie/en/19495
+2016-03-20 14:24:56,236	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/5303473
+2016-03-20 14:24:56,236	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/5303444
+2016-03-20 14:24:56,236	INFO	L38	logainm:ref=20811 for these 2 OSM relations: 3336165, 3336124
+2016-03-20 14:24:56,236	INFO	L39	View on logainm: http://logainm.ie/en/20811
+2016-03-20 14:24:56,236	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/3336165
+2016-03-20 14:24:56,236	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/3336124
+2016-03-20 14:24:56,236	INFO	L38	logainm:ref=57153 for these 2 OSM relations: 5518789, 5465527
+2016-03-20 14:24:56,236	INFO	L39	View on logainm: http://logainm.ie/en/57153
+2016-03-20 14:24:56,236	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/5518789
+2016-03-20 14:24:56,236	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/5465527
+2016-03-20 14:24:56,236	INFO	L38	logainm:ref=28571 for these 2 OSM relations: 4625583, 4625584
+2016-03-20 14:24:56,236	INFO	L39	View on logainm: http://logainm.ie/en/28571
+2016-03-20 14:24:56,236	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/4625583
+2016-03-20 14:24:56,236	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/4625584
+2016-03-20 14:24:56,236	INFO	L38	logainm:ref=3258 for these 2 OSM relations: 2191980, 2281992
+2016-03-20 14:24:56,236	INFO	L39	View on logainm: http://logainm.ie/en/3258
+2016-03-20 14:24:56,236	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/2191980
+2016-03-20 14:24:56,236	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/2281992
+2016-03-20 14:24:56,237	INFO	L38	logainm:ref=3318 for these 2 OSM relations: 2193047, 2192973
+2016-03-20 14:24:56,237	INFO	L39	View on logainm: http://logainm.ie/en/3318
+2016-03-20 14:24:56,237	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/2193047
+2016-03-20 14:24:56,237	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/2192973
+2016-03-20 14:24:56,237	INFO	L38	logainm:ref=18035 for these 2 OSM relations: 3399561, 3344425
+2016-03-20 14:24:56,237	INFO	L39	View on logainm: http://logainm.ie/en/18035
+2016-03-20 14:24:56,237	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/3399561
+2016-03-20 14:24:56,237	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/3344425
+2016-03-20 14:24:56,237	INFO	L38	logainm:ref=3120 for these 2 OSM relations: 2319716, 2191984
+2016-03-20 14:24:56,237	INFO	L39	View on logainm: http://logainm.ie/en/3120
+2016-03-20 14:24:56,237	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/2319716
+2016-03-20 14:24:56,237	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/2191984
+2016-03-20 14:24:56,237	INFO	L38	logainm:ref=41669 for these 2 OSM relations: 4193725, 4250417
+2016-03-20 14:24:56,237	INFO	L39	View on logainm: http://logainm.ie/en/41669
+2016-03-20 14:24:56,237	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/4193725
+2016-03-20 14:24:56,237	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/4250417
+2016-03-20 14:24:56,237	INFO	L38	logainm:ref=28192 for these 2 OSM relations: 4638525, 4638524
+2016-03-20 14:24:56,237	INFO	L39	View on logainm: http://logainm.ie/en/28192
+2016-03-20 14:24:56,237	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/4638525
+2016-03-20 14:24:56,237	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/4638524
+2016-03-20 14:24:56,237	INFO	L38	logainm:ref=3515 for these 2 OSM relations: 2230189, 2277871
+2016-03-20 14:24:56,237	INFO	L39	View on logainm: http://logainm.ie/en/3515
+2016-03-20 14:24:56,237	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/2230189
+2016-03-20 14:24:56,237	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/2277871
+2016-03-20 14:24:56,237	INFO	L38	logainm:ref=3514 for these 2 OSM relations: 2277841, 2191732
+2016-03-20 14:24:56,237	INFO	L39	View on logainm: http://logainm.ie/en/3514
+2016-03-20 14:24:56,237	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/2277841
+2016-03-20 14:24:56,237	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/2191732
+2016-03-20 14:24:56,237	INFO	L38	logainm:ref=50880 for these 2 OSM relations: 3365417, 3366991
+2016-03-20 14:24:56,237	INFO	L39	View on logainm: http://logainm.ie/en/50880
+2016-03-20 14:24:56,237	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/3365417
+2016-03-20 14:24:56,237	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/3366991
+2016-03-20 14:24:56,237	INFO	L38	logainm:ref=1233 for these 2 OSM relations: 5824304, 5813306
+2016-03-20 14:24:56,237	INFO	L39	View on logainm: http://logainm.ie/en/1233
+2016-03-20 14:24:56,238	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/5824304
+2016-03-20 14:24:56,238	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/5813306
+2016-03-20 14:24:56,238	INFO	L38	logainm:ref=16741 for these 2 OSM relations: 3397059, 3397060
+2016-03-20 14:24:56,238	INFO	L39	View on logainm: http://logainm.ie/en/16741
+2016-03-20 14:24:56,238	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/3397059
+2016-03-20 14:24:56,238	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/3397060
+2016-03-20 14:24:56,238	INFO	L38	logainm:ref=30034 for these 2 OSM relations: 2181743, 2334958
+2016-03-20 14:24:56,238	INFO	L39	View on logainm: http://logainm.ie/en/30034
+2016-03-20 14:24:56,238	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/2181743
+2016-03-20 14:24:56,238	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/2334958
+2016-03-20 14:24:56,238	INFO	L38	logainm:ref=7297 for these 2 OSM relations: 4166289, 4166041
+2016-03-20 14:24:56,238	INFO	L39	View on logainm: http://logainm.ie/en/7297
+2016-03-20 14:24:56,238	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/4166289
+2016-03-20 14:24:56,238	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/4166041
+2016-03-20 14:24:56,238	INFO	L38	logainm:ref=7298 for these 2 OSM relations: 4165872, 4165873
+2016-03-20 14:24:56,238	INFO	L39	View on logainm: http://logainm.ie/en/7298
+2016-03-20 14:24:56,238	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/4165872
+2016-03-20 14:24:56,238	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/4165873
+2016-03-20 14:24:56,238	INFO	L38	logainm:ref=3419 for these 2 OSM relations: 2230618, 2277492
+2016-03-20 14:24:56,238	INFO	L39	View on logainm: http://logainm.ie/en/3419
+2016-03-20 14:24:56,238	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/2230618
+2016-03-20 14:24:56,238	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/2277492
+2016-03-20 14:24:56,238	INFO	L38	logainm:ref=3327 for these 2 OSM relations: 2201432, 2274305
+2016-03-20 14:24:56,238	INFO	L39	View on logainm: http://logainm.ie/en/3327
+2016-03-20 14:24:56,238	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/2201432
+2016-03-20 14:24:56,238	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/2274305
+2016-03-20 14:24:56,238	INFO	L38	logainm:ref=25969 for these 2 OSM relations: 5492423, 5634760
+2016-03-20 14:24:56,238	INFO	L39	View on logainm: http://logainm.ie/en/25969
+2016-03-20 14:24:56,238	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/5492423
+2016-03-20 14:24:56,238	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/5634760
+2016-03-20 14:24:56,239	INFO	L38	logainm:ref=52224 for these 2 OSM relations: 2448460, 5820062
+2016-03-20 14:24:56,239	INFO	L39	View on logainm: http://logainm.ie/en/52224
+2016-03-20 14:24:56,239	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/2448460
+2016-03-20 14:24:56,239	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/5820062
+2016-03-20 14:24:56,239	INFO	L38	logainm:ref=3173 for these 2 OSM relations: 2282333, 2264806
+2016-03-20 14:24:56,239	INFO	L39	View on logainm: http://logainm.ie/en/3173
+2016-03-20 14:24:56,239	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/2282333
+2016-03-20 14:24:56,239	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/2264806
+2016-03-20 14:24:56,239	INFO	L38	logainm:ref=3174 for these 2 OSM relations: 2282348, 2264807
+2016-03-20 14:24:56,239	INFO	L39	View on logainm: http://logainm.ie/en/3174
+2016-03-20 14:24:56,239	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/2282348
+2016-03-20 14:24:56,239	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/2264807
+2016-03-20 14:24:56,239	INFO	L38	logainm:ref=3176 for these 2 OSM relations: 2281141, 2192322
+2016-03-20 14:24:56,239	INFO	L39	View on logainm: http://logainm.ie/en/3176
+2016-03-20 14:24:56,239	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/2281141
+2016-03-20 14:24:56,239	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/2192322
+2016-03-20 14:24:56,239	INFO	L38	logainm:ref=41189 for these 2 OSM relations: 4256524, 4247762
+2016-03-20 14:24:56,239	INFO	L39	View on logainm: http://logainm.ie/en/41189
+2016-03-20 14:24:56,239	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/4256524
+2016-03-20 14:24:56,239	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/4247762
+2016-03-20 14:24:56,239	INFO	L38	logainm:ref=41188 for these 2 OSM relations: 4247754, 4256413
+2016-03-20 14:24:56,239	INFO	L39	View on logainm: http://logainm.ie/en/41188
+2016-03-20 14:24:56,239	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/4247754
+2016-03-20 14:24:56,239	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/4256413
+2016-03-20 14:24:56,239	INFO	L38	logainm:ref=41182 for these 2 OSM relations: 4247740, 4256473
+2016-03-20 14:24:56,239	INFO	L39	View on logainm: http://logainm.ie/en/41182
+2016-03-20 14:24:56,239	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/4247740
+2016-03-20 14:24:56,239	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/4256473
+2016-03-20 14:24:56,240	INFO	L38	logainm:ref=14153 for these 2 OSM relations: 5624646, 5624647
+2016-03-20 14:24:56,240	INFO	L39	View on logainm: http://logainm.ie/en/14153
+2016-03-20 14:24:56,240	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/5624646
+2016-03-20 14:24:56,240	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/5624647
+2016-03-20 14:24:56,240	INFO	L38	logainm:ref=50723 for these 2 OSM relations: 4216853, 5290185
+2016-03-20 14:24:56,240	INFO	L39	View on logainm: http://logainm.ie/en/50723
+2016-03-20 14:24:56,240	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/4216853
+2016-03-20 14:24:56,240	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/5290185
+2016-03-20 14:24:56,240	INFO	L38	logainm:ref=50729 for these 2 OSM relations: 4216857, 5330674
+2016-03-20 14:24:56,240	INFO	L39	View on logainm: http://logainm.ie/en/50729
+2016-03-20 14:24:56,240	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/4216857
+2016-03-20 14:24:56,240	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/5330674
+2016-03-20 14:24:56,240	INFO	L38	logainm:ref=50728 for these 2 OSM relations: 5290188, 4216856
+2016-03-20 14:24:56,240	INFO	L39	View on logainm: http://logainm.ie/en/50728
+2016-03-20 14:24:56,240	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/5290188
+2016-03-20 14:24:56,240	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/4216856
+2016-03-20 14:24:56,240	INFO	L38	logainm:ref=16801 for these 2 OSM relations: 5442707, 5442706
+2016-03-20 14:24:56,240	INFO	L39	View on logainm: http://logainm.ie/en/16801
+2016-03-20 14:24:56,240	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/5442707
+2016-03-20 14:24:56,240	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/5442706
+2016-03-20 14:24:56,240	INFO	L38	logainm:ref=52933 for these 2 OSM relations: 2361853, 3666367
+2016-03-20 14:24:56,240	INFO	L39	View on logainm: http://logainm.ie/en/52933
+2016-03-20 14:24:56,240	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/2361853
+2016-03-20 14:24:56,240	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/3666367
+2016-03-20 14:24:56,240	INFO	L38	logainm:ref=24365 for these 2 OSM relations: 5721185, 5721184
+2016-03-20 14:24:56,240	INFO	L39	View on logainm: http://logainm.ie/en/24365
+2016-03-20 14:24:56,240	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/5721185
+2016-03-20 14:24:56,240	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/5721184
+2016-03-20 14:24:56,240	INFO	L38	logainm:ref=28856 for these 2 OSM relations: 4641440, 4641439
+2016-03-20 14:24:56,240	INFO	L39	View on logainm: http://logainm.ie/en/28856
+2016-03-20 14:24:56,240	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/4641440
+2016-03-20 14:24:56,240	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/4641439
+2016-03-20 14:24:56,240	INFO	L38	logainm:ref=28852 for these 2 OSM relations: 4791017, 4641435
+2016-03-20 14:24:56,240	INFO	L39	View on logainm: http://logainm.ie/en/28852
+2016-03-20 14:24:56,241	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/4791017
+2016-03-20 14:24:56,241	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/4641435
+2016-03-20 14:24:56,241	INFO	L38	logainm:ref=17492 for these 2 OSM relations: 2195323, 5485519
+2016-03-20 14:24:56,241	INFO	L39	View on logainm: http://logainm.ie/en/17492
+2016-03-20 14:24:56,241	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/2195323
+2016-03-20 14:24:56,241	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/5485519
+2016-03-20 14:24:56,241	INFO	L38	logainm:ref=96 for these 2 OSM relations: 5821818, 5821842
+2016-03-20 14:24:56,241	INFO	L39	View on logainm: http://logainm.ie/en/96
+2016-03-20 14:24:56,241	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/5821818
+2016-03-20 14:24:56,241	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/5821842
+2016-03-20 14:24:56,241	INFO	L38	logainm:ref=3531 for these 3 OSM relations: 2274862, 2274863, 2196774
+2016-03-20 14:24:56,241	INFO	L39	View on logainm: http://logainm.ie/en/3531
+2016-03-20 14:24:56,241	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/2274862
+2016-03-20 14:24:56,241	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/2274863
+2016-03-20 14:24:56,241	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/2196774
+2016-03-20 14:24:56,241	INFO	L38	logainm:ref=3532 for these 2 OSM relations: 2246452, 2309667
+2016-03-20 14:24:56,241	INFO	L39	View on logainm: http://logainm.ie/en/3532
+2016-03-20 14:24:56,241	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/2246452
+2016-03-20 14:24:56,241	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/2309667
+2016-03-20 14:24:56,241	INFO	L38	logainm:ref=3537 for these 2 OSM relations: 2193842, 2285073
+2016-03-20 14:24:56,241	INFO	L39	View on logainm: http://logainm.ie/en/3537
+2016-03-20 14:24:56,241	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/2193842
+2016-03-20 14:24:56,241	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/2285073
+2016-03-20 14:24:56,241	INFO	L38	logainm:ref=3536 for these 2 OSM relations: 2275012, 2225016
+2016-03-20 14:24:56,241	INFO	L39	View on logainm: http://logainm.ie/en/3536
+2016-03-20 14:24:56,241	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/2275012
+2016-03-20 14:24:56,241	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/2225016
+2016-03-20 14:24:56,241	INFO	L38	logainm:ref=15112 for these 2 OSM relations: 4029006, 4032716
+2016-03-20 14:24:56,241	INFO	L39	View on logainm: http://logainm.ie/en/15112
+2016-03-20 14:24:56,241	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/4029006
+2016-03-20 14:24:56,241	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/4032716
+2016-03-20 14:24:56,241	INFO	L38	logainm:ref=41694 for these 2 OSM relations: 4196313, 4257066
+2016-03-20 14:24:56,241	INFO	L39	View on logainm: http://logainm.ie/en/41694
+2016-03-20 14:24:56,241	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/4196313
+2016-03-20 14:24:56,241	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/4257066
+2016-03-20 14:24:56,242	INFO	L38	logainm:ref=50866 for these 2 OSM relations: 4187052, 4220281
+2016-03-20 14:24:56,242	INFO	L39	View on logainm: http://logainm.ie/en/50866
+2016-03-20 14:24:56,242	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/4187052
+2016-03-20 14:24:56,242	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/4220281
+2016-03-20 14:24:56,242	INFO	L38	logainm:ref=3472 for these 2 OSM relations: 2246984, 2280609
+2016-03-20 14:24:56,242	INFO	L39	View on logainm: http://logainm.ie/en/3472
+2016-03-20 14:24:56,242	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/2246984
+2016-03-20 14:24:56,242	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/2280609
+2016-03-20 14:24:56,242	INFO	L38	logainm:ref=32768 for these 2 OSM relations: 2551707, 2439089
+2016-03-20 14:24:56,242	INFO	L39	View on logainm: http://logainm.ie/en/32768
+2016-03-20 14:24:56,242	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/2551707
+2016-03-20 14:24:56,242	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/2439089
+2016-03-20 14:24:56,242	INFO	L38	logainm:ref=3385 for these 2 OSM relations: 2191706, 2305115
+2016-03-20 14:24:56,242	INFO	L39	View on logainm: http://logainm.ie/en/3385
+2016-03-20 14:24:56,242	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/2191706
+2016-03-20 14:24:56,242	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/2305115
+2016-03-20 14:24:56,242	INFO	L38	logainm:ref=3198 for these 3 OSM relations: 2249138, 2281952, 2309620
+2016-03-20 14:24:56,242	INFO	L39	View on logainm: http://logainm.ie/en/3198
+2016-03-20 14:24:56,242	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/2249138
+2016-03-20 14:24:56,242	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/2281952
+2016-03-20 14:24:56,242	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/2309620
+2016-03-20 14:24:56,242	INFO	L38	logainm:ref=1416660 for these 2 OSM relations: 5464871, 5513778
+2016-03-20 14:24:56,242	INFO	L39	View on logainm: http://logainm.ie/en/1416660
+2016-03-20 14:24:56,242	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/5464871
+2016-03-20 14:24:56,242	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/5513778
+2016-03-20 14:24:56,242	INFO	L38	logainm:ref=51023 for these 2 OSM relations: 3363020, 3359598
+2016-03-20 14:24:56,242	INFO	L39	View on logainm: http://logainm.ie/en/51023
+2016-03-20 14:24:56,242	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/3363020
+2016-03-20 14:24:56,242	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/3359598
+2016-03-20 14:24:56,243	INFO	L38	logainm:ref=41670 for these 2 OSM relations: 4193726, 4250418
+2016-03-20 14:24:56,243	INFO	L39	View on logainm: http://logainm.ie/en/41670
+2016-03-20 14:24:56,243	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/4193726
+2016-03-20 14:24:56,243	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/4250418
+2016-03-20 14:24:56,243	INFO	L38	logainm:ref=3508 for these 2 OSM relations: 2211228, 2279839
+2016-03-20 14:24:56,243	INFO	L39	View on logainm: http://logainm.ie/en/3508
+2016-03-20 14:24:56,243	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/2211228
+2016-03-20 14:24:56,243	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/2279839
+2016-03-20 14:24:56,243	INFO	L38	logainm:ref=16738 for these 2 OSM relations: 3397834, 5424747
+2016-03-20 14:24:56,243	INFO	L39	View on logainm: http://logainm.ie/en/16738
+2016-03-20 14:24:56,243	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/3397834
+2016-03-20 14:24:56,243	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/5424747
+2016-03-20 14:24:56,243	INFO	L38	logainm:ref=55512 for these 2 OSM relations: 3557649, 4510047
+2016-03-20 14:24:56,243	INFO	L39	View on logainm: http://logainm.ie/en/55512
+2016-03-20 14:24:56,243	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/3557649
+2016-03-20 14:24:56,243	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/4510047
+2016-03-20 14:24:56,243	INFO	L38	logainm:ref=16941 for these 2 OSM relations: 4202450, 4202449
+2016-03-20 14:24:56,243	INFO	L39	View on logainm: http://logainm.ie/en/16941
+2016-03-20 14:24:56,243	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/4202450
+2016-03-20 14:24:56,243	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/4202449
+2016-03-20 14:24:56,243	INFO	L38	logainm:ref=42189 for these 2 OSM relations: 4207562, 4207561
+2016-03-20 14:24:56,244	INFO	L39	View on logainm: http://logainm.ie/en/42189
+2016-03-20 14:24:56,244	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/4207562
+2016-03-20 14:24:56,244	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/4207561
+2016-03-20 14:24:56,244	INFO	L38	logainm:ref=21187 for these 2 OSM relations: 5602073, 5603805
+2016-03-20 14:24:56,244	INFO	L39	View on logainm: http://logainm.ie/en/21187
+2016-03-20 14:24:56,244	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/5602073
+2016-03-20 14:24:56,244	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/5603805
+2016-03-20 14:24:56,244	INFO	L38	logainm:ref=28299 for these 2 OSM relations: 4637216, 4497992
+2016-03-20 14:24:56,244	INFO	L39	View on logainm: http://logainm.ie/en/28299
+2016-03-20 14:24:56,244	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/4637216
+2016-03-20 14:24:56,244	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/4497992
+2016-03-20 14:24:56,244	INFO	L38	logainm:ref=18511 for these 2 OSM relations: 3856417, 3856418
+2016-03-20 14:24:56,244	INFO	L39	View on logainm: http://logainm.ie/en/18511
+2016-03-20 14:24:56,244	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/3856417
+2016-03-20 14:24:56,244	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/3856418
+2016-03-20 14:24:56,244	INFO	L38	logainm:ref=863 for these 2 OSM relations: 4629705, 4612172
+2016-03-20 14:24:56,244	INFO	L39	View on logainm: http://logainm.ie/en/863
+2016-03-20 14:24:56,244	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/4629705
+2016-03-20 14:24:56,244	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/4612172
+2016-03-20 14:24:56,244	INFO	L38	logainm:ref=3429 for these 2 OSM relations: 2319610, 2267302
+2016-03-20 14:24:56,244	INFO	L39	View on logainm: http://logainm.ie/en/3429
+2016-03-20 14:24:56,244	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/2319610
+2016-03-20 14:24:56,244	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/2267302
+2016-03-20 14:24:56,244	INFO	L38	logainm:ref=3422 for these 2 OSM relations: 2264816, 2263027
+2016-03-20 14:24:56,244	INFO	L39	View on logainm: http://logainm.ie/en/3422
+2016-03-20 14:24:56,244	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/2264816
+2016-03-20 14:24:56,244	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/2263027
+2016-03-20 14:24:56,244	INFO	L38	logainm:ref=3424 for these 2 OSM relations: 2277531, 2264818
+2016-03-20 14:24:56,244	INFO	L39	View on logainm: http://logainm.ie/en/3424
+2016-03-20 14:24:56,244	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/2277531
+2016-03-20 14:24:56,244	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/2264818
+2016-03-20 14:24:56,244	INFO	L38	logainm:ref=19452 for these 2 OSM relations: 5246288, 5241992
+2016-03-20 14:24:56,244	INFO	L39	View on logainm: http://logainm.ie/en/19452
+2016-03-20 14:24:56,244	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/5246288
+2016-03-20 14:24:56,244	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/5241992
+2016-03-20 14:24:56,244	INFO	L38	logainm:ref=37936 for these 2 OSM relations: 4440700, 4440701
+2016-03-20 14:24:56,244	INFO	L39	View on logainm: http://logainm.ie/en/37936
+2016-03-20 14:24:56,244	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/4440700
+2016-03-20 14:24:56,245	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/4440701
+2016-03-20 14:24:56,245	INFO	L38	logainm:ref=3216 for these 2 OSM relations: 2230438, 2281119
+2016-03-20 14:24:56,245	INFO	L39	View on logainm: http://logainm.ie/en/3216
+2016-03-20 14:24:56,245	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/2230438
+2016-03-20 14:24:56,245	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/2281119
+2016-03-20 14:24:56,245	INFO	L38	logainm:ref=60124 for these 2 OSM relations: 3519318, 3558931
+2016-03-20 14:24:56,245	INFO	L39	View on logainm: http://logainm.ie/en/60124
+2016-03-20 14:24:56,245	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/3519318
+2016-03-20 14:24:56,245	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/3558931
+2016-03-20 14:24:56,245	INFO	L38	logainm:ref=3354 for these 2 OSM relations: 2191983, 2319715
+2016-03-20 14:24:56,245	INFO	L39	View on logainm: http://logainm.ie/en/3354
+2016-03-20 14:24:56,245	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/2191983
+2016-03-20 14:24:56,245	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/2319715
+2016-03-20 14:24:56,245	INFO	L38	logainm:ref=3353 for these 2 OSM relations: 2281158, 2256987
+2016-03-20 14:24:56,245	INFO	L39	View on logainm: http://logainm.ie/en/3353
+2016-03-20 14:24:56,245	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/2281158
+2016-03-20 14:24:56,245	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/2256987
+2016-03-20 14:24:56,245	INFO	L38	logainm:ref=43955 for these 2 OSM relations: 5243971, 5124254
+2016-03-20 14:24:56,246	INFO	L39	View on logainm: http://logainm.ie/en/43955
+2016-03-20 14:24:56,246	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/5243971
+2016-03-20 14:24:56,246	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/5124254
+2016-03-20 14:24:56,246	INFO	L38	logainm:ref=60513 for these 2 OSM relations: 3856947, 3864957
+2016-03-20 14:24:56,246	INFO	L39	View on logainm: http://logainm.ie/en/60513
+2016-03-20 14:24:56,246	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/3856947
+2016-03-20 14:24:56,246	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/3864957
+2016-03-20 14:24:56,246	INFO	L38	logainm:ref=16783 for these 2 OSM relations: 4433659, 3396639
+2016-03-20 14:24:56,246	INFO	L39	View on logainm: http://logainm.ie/en/16783
+2016-03-20 14:24:56,246	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/4433659
+2016-03-20 14:24:56,246	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/3396639
+2016-03-20 14:24:56,246	INFO	L38	logainm:ref=32846 for these 2 OSM relations: 2302506, 2302505
+2016-03-20 14:24:56,246	INFO	L39	View on logainm: http://logainm.ie/en/32846
+2016-03-20 14:24:56,246	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/2302506
+2016-03-20 14:24:56,246	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/2302505
+2016-03-20 14:24:56,246	INFO	L38	logainm:ref=3297 for these 2 OSM relations: 2296896, 2225897
+2016-03-20 14:24:56,246	INFO	L39	View on logainm: http://logainm.ie/en/3297
+2016-03-20 14:24:56,246	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/2296896
+2016-03-20 14:24:56,246	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/2225897
+2016-03-20 14:24:56,246	INFO	L38	logainm:ref=17547 for these 2 OSM relations: 5471843, 5451679
+2016-03-20 14:24:56,246	INFO	L39	View on logainm: http://logainm.ie/en/17547
+2016-03-20 14:24:56,247	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/5471843
+2016-03-20 14:24:56,247	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/5451679
+2016-03-20 14:24:56,247	INFO	L38	logainm:ref=50965 for these 2 OSM relations: 4185009, 4185008
+2016-03-20 14:24:56,247	INFO	L39	View on logainm: http://logainm.ie/en/50965
+2016-03-20 14:24:56,247	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/4185009
+2016-03-20 14:24:56,247	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/4185008
+2016-03-20 14:24:56,247	INFO	L38	logainm:ref=21223 for these 2 OSM relations: 4636510, 4636511
+2016-03-20 14:24:56,247	INFO	L39	View on logainm: http://logainm.ie/en/21223
+2016-03-20 14:24:56,247	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/4636510
+2016-03-20 14:24:56,247	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/4636511
+2016-03-20 14:24:56,247	INFO	L38	logainm:ref=57863 for these 2 OSM relations: 4863945, 4866067
+2016-03-20 14:24:56,247	INFO	L39	View on logainm: http://logainm.ie/en/57863
+2016-03-20 14:24:56,247	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/4863945
+2016-03-20 14:24:56,247	INFO	L41	View on OSM: http://www.openstreetmap.org/relation/4866067
+2016-03-20 14:24:56,249	INFO	L45	There are 119 duplicate logainm:refs which affect 241 OSM objects
