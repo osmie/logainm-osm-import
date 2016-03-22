@@ -194,6 +194,21 @@ def hierachial_matchup(logainm_data, cursor, key, obj_logainm_code, parent_logai
     logger.info("Matched up %d %s of %d (%s%%)", len(results), key, len(possibles), (len(results)*100)/len(possibles))
     return results
 
+def remove_and_warn_dupes(logainm_candidates):
+    logainm_ref_to_osm = defaultdict(set)
+    for key, tags in logainm_candidates.items():
+        logainm_ref = tags['logainm_id']
+        logainm_ref_to_osm[logainm_ref].add(key)
+
+    for logainm_ref in logainm_ref_to_osm:
+        osms = logainm_ref_to_osm[logainm_ref]
+        if len(osms) > 1:
+            logger.error("ERROR Duplicates - %s has been matched to the following OSM ids: %s", logainm_ref, ", ".join("{} {}".format(*x) for x in osms))
+            for key in osms:
+                del logainm_candidates[key]
+
+    return logainm_candidates
+
 
 def main():
 
@@ -235,8 +250,11 @@ def main():
     if args.townlands:
         logainm_candidates.update(townlands_matchup(logainm_data, cursor, logainm_candidates))
 
+    logainm_candidates = remove_and_warn_dupes(logainm_candidates)
+
     if args.dry_run:
         return
+
     # read in OSM XML
     with printer("reading in OSM XML"):
         tree = ET.parse(args.input)
