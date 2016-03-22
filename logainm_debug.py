@@ -4,6 +4,9 @@ import csv
 import sqlite3
 import argparse
 
+reload(sys)
+sys.setdefaultencoding('utf-8')
+
 
 def main():
 
