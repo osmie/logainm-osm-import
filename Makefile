@@ -1,6 +1,13 @@
 SHELL := bash
 
+redo: rmosmdata all
+
 all: boundaries.osm.xml townlands-no-geom.csv baronies-no-geom.csv civil_parishes-no-geom.csv counties-no-geom.csv
+
+rmosmdata:
+	-rm boundaries.osm.xml new-boundaries.osm.xml
+	-rm *-no-geom.csv*
+	-rm ireland-and-northern-ireland.osm.pbf
 
 clean:
 	git clean -x -f
