@@ -37,7 +37,7 @@ def main():
         print " No children"
     else:
         for c in children_logainm_id:
-            print u" * [{3}] {1}/{2} ({0})".format(*c)
+            print u" * [{3}] {1}/{2} ({0} http://www.logainm.ie/en/{0})".format(*c)
 
     cursor.execute("select outer_obj_id, names.name_en, names.name_ga, cat.name_en from geometric_contains as c join names on (c.inner_obj_id = names.logainm_id) join categories as cat ON (cat.logainm_category_code = names.logainm_category_code) where c.inner_obj_id = ? ORDER BY cat.name_en", [logainm_id])
     parents = cursor.fetchall()
@@ -47,7 +47,7 @@ def main():
         print " No parents"
     else:
         for c in parents:
-            print u" * [{3}] {1}/{2} ({0})".format(*c)
+            print u" * [{3}] {1}/{2} ({0} http://www.logainm.ie/en/{0})".format(*c)
 
 
 
