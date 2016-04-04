@@ -29,7 +29,7 @@ def main():
     name_en, name_ga, category = data
     print u"Logainm [{}] {} {}/{}".format(category, logainm_id, name_en, name_ga)
 
-    cursor.execute("select inner_obj_id, names.name_en, names.name_ga, cat.name_en from geometric_contains as c join names on (c.inner_obj_id = names.logainm_id) join categories as cat ON (cat.logainm_category_code = names.logainm_category_code) where c.outer_obj_id = ? ORDER BY cat.name_en", [logainm_id])
+    cursor.execute("select inner_obj_id, names.name_en, names.name_ga, cat.name_en from geometric_contains as c join names on (c.inner_obj_id = names.logainm_id) join categories as cat ON (cat.logainm_category_code = names.logainm_category_code) where c.outer_obj_id = ? ORDER BY cat.name_en, names.name_en", [logainm_id])
     children_logainm_id = cursor.fetchall()
     
     print "Children objects:"
@@ -39,7 +39,7 @@ def main():
         for c in children_logainm_id:
             print u" * [{3}] {1}/{2} ({0} http://www.logainm.ie/en/{0})".format(*c)
 
-    cursor.execute("select outer_obj_id, names.name_en, names.name_ga, cat.name_en from geometric_contains as c join names on (c.outer_obj_id = names.logainm_id) join categories as cat ON (cat.logainm_category_code = names.logainm_category_code) where c.inner_obj_id = ? ORDER BY cat.name_en", [logainm_id])
+    cursor.execute("select outer_obj_id, names.name_en, names.name_ga, cat.name_en from geometric_contains as c join names on (c.outer_obj_id = names.logainm_id) join categories as cat ON (cat.logainm_category_code = names.logainm_category_code) where c.inner_obj_id = ? ORDER BY cat.name_en, names.name_en", [logainm_id])
     parents = cursor.fetchall()
     
     print "Parent objects:"
