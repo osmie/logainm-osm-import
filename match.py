@@ -152,7 +152,7 @@ def hierachial_matchup(logainm_data, cursor, key, obj_logainm_code, parent_logai
         logger.debug("Starting to look at %s %s (osm:%s)", key, name_en(obj), obj['OSM_ID'])
         parent_osm_id = parent_osmid_for_obj_osmid(logainm_data, obj['OSM_ID'], obj_key, parent_key)
         if len(parent_osm_id) == 0:
-            logger.error("ERROR No parent found for %s %s (%s) in OSM: Tie: http:://www.townlands.ie/by/osm_id/%s", key, name_en(obj), obj['OSM_ID'], obj['OSM_ID'])
+            logger.error("ERROR No parent found for %s %s (%s) in OSM: Tie: http://www.townlands.ie/by/osm_id/%s", key, name_en(obj), obj['OSM_ID'], obj['OSM_ID'])
             continue
         elif len(parent_osm_id) > 1:
             logger.error("ERROR Found %s (%s) parents for %s %s (%s) in OSM", len(parent_osm_id), ",".join(parent_osm_id), key, name_en(obj), obj['OSM_ID'])
@@ -162,7 +162,7 @@ def hierachial_matchup(logainm_data, cursor, key, obj_logainm_code, parent_logai
             try:
                 parent_logainm_id = osmid_to_logainm_ref(logainm_data, parent_osm_id, existing_match_ups)
                 if ";" in parent_logainm_id:
-                    logger.error("ERROR %s %s (%s) is in parent %s in OSM which is many logainms: %s Tie: http:://www.townlands.ie/by/osm_id/%s", key, name_en(obj), obj['OSM_ID'], parent_osm_id, parent_logainm_id, obj['OSM_ID'])
+                    logger.error("ERROR %s %s (%s) is in parent %s in OSM which is many logainms: %s Tie: http://www.townlands.ie/by/osm_id/%s", key, name_en(obj), obj['OSM_ID'], parent_osm_id, parent_logainm_id, obj['OSM_ID'])
                     continue
                 else:
                     logger.debug("OK %s %s (%s) is in parent %s in OSM which is logainm id %s", key, name_en(obj), obj['OSM_ID'], parent_osm_id, parent_logainm_id)
