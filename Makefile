@@ -25,14 +25,14 @@ ireland-and-northern-ireland.osm.pbf:
 boundaries.osm.xml: ireland-and-northern-ireland.osm.pbf
 	osmosis --read-pbf ireland-and-northern-ireland.osm.pbf --tag-filter reject-way --tag-filter reject-node --tag-filter accept-relations admin_level=* outPipe.0=admin_level --read-pbf ireland-and-northern-ireland.osm.pbf --tag-filter reject-way --tag-filter reject-node --tag-filter accept-relations boundary=* outPipe.0=boundaries --merge inPipe.0=admin_level inPipe.1=boundaries --write-xml boundaries.osm.xml
 	xmlstarlet c14n boundaries.osm.xml > boundaries2.osm.xml
-	mv boundaries2.osm.xml boundaries.xml
+	mv boundaries2.osm.xml boundaries.osm.xml
 
 new-boundaries.osm.xml: boundaries.osm.xml logainm.sqlite match.py townlands-no-geom.csv \
 	baronies-no-geom.csv civil_parishes-no-geom.csv counties-no-geom.csv
 	mkdir -p ./output/`date -I`
 	python match.py --verbose --input boundaries.osm.xml --output new-boundaries.osm.xml --baronies --civil-parishes --townlands | tee >( lzma > ./output/`date -I`/output.lzma)
 	xmlstarlet c14n new-boundaries.osm.xml > new-boundaries2.osm.xml
-	mv new-boundaries2.osm.xml new-boundaries.xml
+	mv new-boundaries2.osm.xml new-boundaries.osm..xml
 
 sample: clean new-boundaries.osm.xml boundaries.osm.xml
 	tar -cf sample-data-`date -I`.tar boundaries.osm.xml new-boundaries.osm.xml
