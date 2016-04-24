@@ -1,6 +1,8 @@
 SHELL := bash
 
-redo: rmosmdata new-boundaries.osm.xml
+redo: redownload new-boundaries.osm.xml
+
+redownload: rmosmdata boundaries.osm.xml townlands-no-geom.csv baronies-no-geom.csv civil_parishes-no-geom.csv counties-no-geom.csv
 
 all: boundaries.osm.xml townlands-no-geom.csv baronies-no-geom.csv civil_parishes-no-geom.csv counties-no-geom.csv
 
