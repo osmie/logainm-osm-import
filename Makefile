@@ -34,7 +34,7 @@ new-boundaries.osm.xml: boundaries.osm.xml logainm.sqlite match.py townlands-no-
 	mkdir -p ./output/`date -I`
 	python match.py --verbose --input boundaries.osm.xml --output new-boundaries.osm.xml --baronies --civil-parishes --townlands | tee >( lzma > ./output/`date -I`/output.lzma)
 	xmlstarlet c14n new-boundaries.osm.xml > new-boundaries2.osm.xml
-	mv new-boundaries2.osm.xml new-boundaries.osm..xml
+	mv new-boundaries2.osm.xml new-boundaries.osm.xml
 
 bar-dry-run: boundaries.osm.xml logainm.sqlite match.py townlands-no-geom.csv \
 	baronies-no-geom.csv civil_parishes-no-geom.csv counties-no-geom.csv
