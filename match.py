@@ -122,25 +122,25 @@ def parent_osmid_for_obj_osmid(logainm_data, obj_osmid, obj_key, parent_key):
 def baronies_matchup(logainm_data, cursor, existing_match_ups):
     return hierachial_matchup(logainm_data, cursor,
                 key='baronies', obj_logainm_code="BAR", parent_logainm_code='CON',
-                obj_key="BAR_OSM_ID", parent_key="CO_OSM_ID",
+                obj_key="BAR_OSM_ID", parent_key="CO_OSM_ID", parent_name="county",
                 existing_match_ups=existing_match_ups,
          )
 
 def civil_parish_matchup(logainm_data, cursor, existing_match_ups):
     return hierachial_matchup(logainm_data, cursor,
                 key='civil_parishes', obj_logainm_code="PAR", parent_logainm_code='BAR',
-                obj_key="CP_OSM_ID", parent_key="BAR_OSM_ID",
+                obj_key="CP_OSM_ID", parent_key="BAR_OSM_ID", parent_name="barony",
                 existing_match_ups=existing_match_ups,
          )
 
 def townlands_matchup(logainm_data, cursor, existing_match_ups):
     return hierachial_matchup(logainm_data, cursor,
                 key='townlands', obj_logainm_code="BF", parent_logainm_code='PAR',
-                obj_key="OSM_ID", parent_key="CP_OSM_ID",
+                obj_key="OSM_ID", parent_key="CP_OSM_ID", parent_name="civil parish",
                 existing_match_ups=existing_match_ups,
          )
 
-def hierachial_matchup(logainm_data, cursor, key, obj_logainm_code, parent_logainm_code, obj_key, parent_key, existing_match_ups=None):
+def hierachial_matchup(logainm_data, cursor, key, obj_logainm_code, parent_logainm_code, obj_key, parent_key, parent_name, existing_match_ups=None):
     existing_match_ups = existing_match_ups or {}
     logger.info("Have %d %s in total", len(logainm_data[key]), key)
     results = {}
@@ -152,22 +152,22 @@ def hierachial_matchup(logainm_data, cursor, key, obj_logainm_code, parent_logai
         logger.debug("Starting to look at %s %s (osm:%s)", key, name_en(obj), obj['OSM_ID'])
         parent_osm_id = parent_osmid_for_obj_osmid(logainm_data, obj['OSM_ID'], obj_key, parent_key)
         if len(parent_osm_id) == 0:
-            logger.error("ERROR No parent found for %s %s (%s) in OSM: Tie: http://www.townlands.ie/by/osm_id/%s", key, name_en(obj), obj['OSM_ID'], obj['OSM_ID'])
+            logger.error("ERROR No %s found for %s %s (%s) in OSM: Tie: http://www.townlands.ie/by/osm_id/%s", parent_name, key, name_en(obj), obj['OSM_ID'], obj['OSM_ID'])
             continue
         elif len(parent_osm_id) > 1:
-            logger.error("ERROR Found %s (%s) parents for %s %s (%s) in OSM", len(parent_osm_id), ",".join(parent_osm_id), key, name_en(obj), obj['OSM_ID'])
+            logger.error("ERROR Found %s (%s) %s for %s %s (%s) in OSM", len(parent_osm_id), ",".join(parent_osm_id), parent_name, key, name_en(obj), obj['OSM_ID'])
             continue
         elif len(parent_osm_id) == 1:
             parent_osm_id = parent_osm_id.pop()
             try:
                 parent_logainm_id = osmid_to_logainm_ref(logainm_data, parent_osm_id, existing_match_ups)
                 if ";" in parent_logainm_id:
-                    logger.error("ERROR %s %s (%s) is in parent %s in OSM which is many logainms: %s Tie: http://www.townlands.ie/by/osm_id/%s", key, name_en(obj), obj['OSM_ID'], parent_osm_id, parent_logainm_id, obj['OSM_ID'])
+                    logger.error("ERROR %s %s (%s) is in %s %s in OSM which is many logainms: %s Tie: http://www.townlands.ie/by/osm_id/%s", key, name_en(obj), obj['OSM_ID'], parent_name, parent_osm_id, parent_logainm_id, obj['OSM_ID'])
                     continue
                 else:
-                    logger.debug("OK %s %s (%s) is in parent %s in OSM which is logainm id %s", key, name_en(obj), obj['OSM_ID'], parent_osm_id, parent_logainm_id)
+                    logger.debug("OK %s %s (%s) is in %s %s in OSM which is logainm id %s", key, name_en(obj), obj['OSM_ID'], parent_name, parent_osm_id, parent_logainm_id)
             except (IndexError, KeyError):
-                logger.error("ERROR %s %s (%s) is in parent %s in OSM which has no known logainm", key, name_en(obj), obj['OSM_ID'], parent_osm_id)
+                logger.error("ERROR %s %s (%s) is in %s %s in OSM which has no known logainm", key, name_en(obj), obj['OSM_ID'], parent_name, parent_osm_id)
                 continue
         else:
             assert False
@@ -178,13 +178,13 @@ def hierachial_matchup(logainm_data, cursor, key, obj_logainm_code, parent_logai
         data = cursor.fetchall()
         data_str = ", ".join(x[0] for x in data)
         if len(data) == 0:
-            logger.error("ERROR %s %s (%s) is in parent OSM:%s (logainm:%s) which has no children in logainm for this name", key, name_en(obj), obj['OSM_ID'], parent_osm_id, parent_logainm_id)
+            logger.error("ERROR %s %s (%s) is in %s OSM:%s (logainm:%s) which has no %s in logainm for this name", key, name_en(obj), obj['OSM_ID'], parent_name, parent_osm_id, parent_logainm_id, key)
             continue
         elif len(data) > 1:
-            logger.error("ERROR %s %s (%s) is in parent OSM:%s (logainm:%s) has >1 children in logainm for this name, children: %s", key, name_en(obj), obj['OSM_ID'], parent_osm_id, parent_logainm_id, data_str)
+            logger.error("ERROR %s %s (%s) is in %s OSM:%s (logainm:%s) has >1 %s in logainm for this name: %s", key, name_en(obj), obj['OSM_ID'], parent_name, parent_osm_id, parent_logainm_id, key, data_str)
             continue
         elif len(data) == 1:
-            logger.info("OK %s %s (%s) is in parent OSM:%s (logainm:%s) has 1 child in logainm for this name, children: %s", key, name_en(obj), obj['OSM_ID'], parent_osm_id, parent_logainm_id, data_str)
+            logger.info("OK %s %s (%s) is in %s OSM:%s (logainm:%s) has 1 %s in logainm for this name: %s", key, name_en(obj), obj['OSM_ID'], parent_name, parent_osm_id, parent_logainm_id, data_str, key)
             # remove leading '-' character
             results[('relation', obj['OSM_ID'][1:])] = get_logainm_tags(cursor, data[0][0])
         else:
