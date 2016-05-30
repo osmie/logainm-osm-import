@@ -155,7 +155,7 @@ def hierachial_matchup(logainm_data, cursor, key, obj_logainm_code, parent_logai
             logger.error("ERROR No %s found for %s %s (%s) in OSM: Tie: http://www.townlands.ie/by/osm_id/%s", parent_name, key, name_en(obj), obj['OSM_ID'], obj['OSM_ID'])
             continue
         elif len(parent_osm_id) > 1:
-            logger.error("ERROR Found %s (%s) %s for %s %s (%s) in OSM", len(parent_osm_id), ",".join(parent_osm_id), parent_name, key, name_en(obj), obj['OSM_ID'])
+            logger.error("ERROR Found %s (%s) %s for %s %s (osmid=%s) in OSM", len(parent_osm_id), ",".join(parent_osm_id), parent_name, key, name_en(obj), obj['OSM_ID'])
             continue
         elif len(parent_osm_id) == 1:
             parent_osm_id = parent_osm_id.pop()
