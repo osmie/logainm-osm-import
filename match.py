@@ -108,10 +108,12 @@ def read_logainm_data():
     # add new tags to OSM XML
     results['liveosmdata'] = {}
     for rel in root.findall("relation"):
-        osm_id = rel.get("id", None)
+        osm_id = "-"+rel.get("id", None)
         tags = get_existing_osm_tags(rel)
         if 'logainm:ref' in tags:
-            results['index']['osmid_to_logainm_ref']['-'+osm_id] = tags['logainm:ref']
+            results['index']['osmid_to_logainm_ref'][osm_id] = tags['logainm:ref']
+            results['liveosmdata'][osm_id] = True
+
 
     return results
 
@@ -201,6 +203,16 @@ def hierachial_matchup(logainm_data, cursor, key, obj_logainm_code, parent_logai
     logger.info("Found %(len)d (%(percent)f%%) %(type)s without logainm ref", dict(len=len(possibles), type=key, percent=(len(possibles)*100/len(logainm_data[key]))))
 
     for obj in possibles:
+        # maybe it's in the OSM XML already?
+        if logainm_data['liveosmdata'].get(obj['OSM_ID'], False):
+            logainm_id = logainm_data['index']['osmid_to_logainm_ref'][obj['OSM_ID']]
+            logger.info("%(key)s %(name)s (OSM:%(osmid)s) has a logainm:ref in OSM (logainm %(logainm_id)s)", {'key': key, 'name': name_en(obj), 'osmid': obj['OSM_ID'], 'logainm_id': logainm_id})
+            try:
+                results[('relation', obj['OSM_ID'][1:])] = get_logainm_tags(cursor, logainm_id)
+            except:
+                pass
+            continue
+
         logger.debug("Starting to look at %s %s (osm:%s)", key, name_en(obj), obj['OSM_ID'])
         parent_osm_id = parent_osmid_for_obj_osmid(logainm_data, obj['OSM_ID'], obj_key, parent_key)
         if len(parent_osm_id) == 0:
