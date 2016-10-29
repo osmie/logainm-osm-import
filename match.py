@@ -273,7 +273,7 @@ def main():
 
     # add new tags to OSM XML
     with printer("adding XML tags"):
-        for rel in root.iter("relation"):
+        for rel in root.findall("relation"):
             osm_id = rel.get("id", None)
             if ('relation', osm_id) in logainm_candidates:
 
@@ -284,6 +284,8 @@ def main():
                 logaimn_data = logainm_candidates[('relation', osm_id)]
                 for k, v in logainm_tags(rel, logaimn_data).items():
                     ET.SubElement(rel, 'tag', {'k': k, 'v': v})
+            else:
+                root.remove(rel)
 
 
     # write out OSM XML
