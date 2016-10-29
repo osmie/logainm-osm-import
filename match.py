@@ -209,6 +209,14 @@ def remove_and_warn_dupes(logainm_candidates):
 
     return logainm_candidates
 
+def limit(logainm_candidates, limit):
+    if limit is None:
+        return logainm_candidates
+
+    limit = int(limit)
+    logainm_candidates = dict((sorted(logainm_candidates.items()))[:limit])
+
+    return logainm_candidates
 
 def main():
 
@@ -220,6 +228,8 @@ def main():
     parser.add_argument("--townlands", action="store_true")
     parser.add_argument("-v", "--verbose", action="store_true")
     parser.add_argument("-n", "--dry-run", action="store_true")
+
+    parser.add_argument("-l", "--limit")
 
     args = parser.parse_args()
 
@@ -251,6 +261,7 @@ def main():
         logainm_candidates.update(townlands_matchup(logainm_data, cursor, logainm_candidates))
 
     logainm_candidates = remove_and_warn_dupes(logainm_candidates)
+    logainm_candidates = limit(logainm_candidates, args.limit)
 
     if args.dry_run:
         return
