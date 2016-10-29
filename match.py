@@ -178,7 +178,7 @@ def hierachial_matchup(logainm_data, cursor, key, obj_logainm_code, parent_logai
         data = cursor.fetchall()
         data_str = ", ".join(x[0] for x in data)
         if len(data) == 0:
-            logger.error("ERROR %s %s (%s) is in %s OSM:%s (logainm:%s) which has no %s in logainm for this name", key, name_en(obj), obj['OSM_ID'], parent_name, parent_osm_id, parent_logainm_id, key)
+            logger.error("ERROR %s %s (%s) is in %s OSM:%s (logainm:%s) http://www.townlands.ie/by/osm_id/%s/ which has no %s in logainm for this name", key, name_en(obj), obj['OSM_ID'], parent_name, parent_osm_id, parent_logainm_id, obj['OSM_ID'], key)
             continue
         elif len(data) > 1:
             logger.error("ERROR %s %s (%s) is in %s OSM:%s (logainm:%s) has >1 %s in logainm for this name: %s", key, name_en(obj), obj['OSM_ID'], parent_name, parent_osm_id, parent_logainm_id, key, data_str)
