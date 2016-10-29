@@ -146,7 +146,7 @@ def hierachial_matchup(logainm_data, cursor, key, obj_logainm_code, parent_logai
     results = {}
 
     possibles = [b for b in logainm_data[key] if b['LOGAINM_RE'] == '']
-    logger.info("Found %d %s without logainm ref", len(possibles), key)
+    logger.info("Found %(len)d (%(percent)f%%) %(type)s without logainm ref", dict(len=len(possibles), type=key, percent=(len(possibles)*100/len(logainm_data[key]))))
 
     for obj in possibles:
         logger.debug("Starting to look at %s %s (osm:%s)", key, name_en(obj), obj['OSM_ID'])
