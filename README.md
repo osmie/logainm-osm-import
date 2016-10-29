@@ -2,4 +2,4 @@ This contains source code to import and add [Logainm](logain.ie) data to [OpenSt
 
 Run `make redo` to generate a `new-boundaries.osm.xml` which is a file you can upload with JOSM.
 
-Run `make td-dry-run` to get debugging information about what errors there were when doing a match up.
+Run `make td-dry-run`/`make bar-dry-run`/`make cp-dry-run` to get debugging information about what errors there were when doing a match up.
