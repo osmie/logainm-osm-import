@@ -6,6 +6,7 @@ import sqlite3
 import xml.etree.ElementTree as ET
 import argparse
 from collections import defaultdict
+import re
 
 
 logger = logging.getLogger(__name__)
@@ -100,6 +101,18 @@ def read_logainm_data():
             if x['LOGAINM_RE'].strip() not in (None, ''):
                 results['index']['osmid_to_logainm_ref'][x['OSM_ID']] = x['LOGAINM_RE']
 
+    # load existing osm data
+    tree = ET.parse("boundaries.osm.xml")
+    root = tree.getroot()
+
+    # add new tags to OSM XML
+    results['liveosmdata'] = {}
+    for rel in root.findall("relation"):
+        osm_id = rel.get("id", None)
+        tags = get_existing_osm_tags(rel)
+        if 'logainm:ref' in tags:
+            results['index']['osmid_to_logainm_ref']['-'+osm_id] = tags['logainm:ref']
+
     return results
 
 def osmid_to_logainm_ref(logainm_data, osm_id, existing_match_ups):
@@ -140,6 +153,45 @@ def townlands_matchup(logainm_data, cursor, existing_match_ups):
                 existing_match_ups=existing_match_ups,
          )
 
+def generate_name_options(name):
+    options = {name}
+    for subpart in ["Upper", "Lower", "East", "West", "North", "South"]:
+        options.add(re.sub("^(.*) "+subpart+r"$", subpart+r" \1", name))
+        options.add(re.sub("^"+subpart+" (.*)$", r"\1 "+subpart, name))
+
+    options.add(re.sub("^St. (.*)$", r"Saint \1", name))
+    options.add(re.sub("^Saint (.*)$", r"St \1", name))
+    options.add(re.sub("^Saint (.*)$", r"St. \1", name))
+
+    options = list(options)
+
+    if len(options) > 1:
+        logger.info("Got name options %(name)s: %(options)r", {'name':name, 'options':options})
+    return options
+
+def find_osm_obj_based_on_logainm(cursor, parent_logainm_code, obj_logainm_code, parent_logainm_id, obj, key, parent_name, parent_osm_id):
+    # Now we have the logainm ref of the parent that this obj is in.
+    # Look at the logainm data for the objs in that obj
+    for name in generate_name_options(name_en(obj)):
+        cursor.execute("select obj.logainm_id from names as parent join geometric_contains as con on (parent.logainm_id = con.outer_obj_id) join names as obj on (obj.logainm_id = con.inner_obj_id) where parent.logainm_category_code = ? and obj.logainm_category_code = ? and parent.logainm_id = ? and obj.name_en = ?;", [parent_logainm_code, obj_logainm_code, parent_logainm_id, name])
+        data = cursor.fetchall()
+        data_str = ", ".join(x[0] for x in data)
+        if len(data) == 0:
+            # No match, try other option
+            continue
+        elif len(data) > 1:
+            logger.error("ERROR %s %s (%s) is in %s OSM:%s (logainm:%s) has >1 %s in logainm for this name: %s", key, name_en(obj), obj['OSM_ID'], parent_name, parent_osm_id, parent_logainm_id, key, data_str)
+            continue
+        elif len(data) == 1:
+            logger.info("OK %(key)s %(name)s (%(osmid)s) is in %(parent_name)s OSM:%(parent_osmid)s (logainm:%(parent_osmid)s) has 1 %(key)s in logainm for this name: %(parent_logainm)s", dict(key=key, name=name_en(obj), osmid=obj['OSM_ID'], parent_name=parent_name, parent_osmid=parent_osm_id, parent_logainm=parent_logainm_id))
+            # remove leading '-' character
+            return data[0][0]
+        else:
+            assert False
+
+    logger.error("ERROR %s %s (%s) is in %s OSM:%s (logainm:%s) http://www.townlands.ie/by/osm_id/%s/ which has no %s in logainm for this name", key, name_en(obj), obj['OSM_ID'], parent_name, parent_osm_id, parent_logainm_id, obj['OSM_ID'], key)
+    return None
+
 def hierachial_matchup(logainm_data, cursor, key, obj_logainm_code, parent_logainm_code, obj_key, parent_key, parent_name, existing_match_ups=None):
     existing_match_ups = existing_match_ups or {}
     logger.info("Have %d %s in total", len(logainm_data[key]), key)
@@ -173,22 +225,12 @@ def hierachial_matchup(logainm_data, cursor, key, obj_logainm_code, parent_logai
             assert False
 
         # Now we have the logainm ref of the parent that this obj is in.
-        # Look at the logainm data for the objs in that bar
-        cursor.execute("select obj.logainm_id from names as parent join geometric_contains as con on (parent.logainm_id = con.outer_obj_id) join names as obj on (obj.logainm_id = con.inner_obj_id) where parent.logainm_category_code = ? and obj.logainm_category_code = ? and parent.logainm_id = ? and obj.name_en = ?;", [parent_logainm_code, obj_logainm_code, parent_logainm_id, name_en(obj)])
-        data = cursor.fetchall()
-        data_str = ", ".join(x[0] for x in data)
-        if len(data) == 0:
-            logger.error("ERROR %s %s (%s) is in %s OSM:%s (logainm:%s) http://www.townlands.ie/by/osm_id/%s/ which has no %s in logainm for this name", key, name_en(obj), obj['OSM_ID'], parent_name, parent_osm_id, parent_logainm_id, obj['OSM_ID'], key)
+        # Look at the logainm data for the objs in that obj
+        logainm_id = find_osm_obj_based_on_logainm(cursor, parent_logainm_code, obj_logainm_code, parent_logainm_id, obj, key, parent_name, parent_osm_id)
+        if logainm_id is None:
             continue
-        elif len(data) > 1:
-            logger.error("ERROR %s %s (%s) is in %s OSM:%s (logainm:%s) has >1 %s in logainm for this name: %s", key, name_en(obj), obj['OSM_ID'], parent_name, parent_osm_id, parent_logainm_id, key, data_str)
-            continue
-        elif len(data) == 1:
-            logger.info("OK %s %s (%s) is in %s OSM:%s (logainm:%s) has 1 %s in logainm for this name: %s", key, name_en(obj), obj['OSM_ID'], parent_name, parent_osm_id, parent_logainm_id, data_str, key)
-            # remove leading '-' character
-            results[('relation', obj['OSM_ID'][1:])] = get_logainm_tags(cursor, data[0][0])
         else:
-            assert False
+            results[('relation', obj['OSM_ID'][1:])] = get_logainm_tags(cursor, logainm_id)
 
 
     logger.info("Matched up %d %s of %d without a logainm id (%s%%)", len(results), key, len(possibles), (len(results)*100)/len(possibles))
