@@ -177,7 +177,7 @@ def find_osm_obj_based_on_logainm(cursor, parent_logainm_code, obj_logainm_code,
     for name in generate_name_options(name_en(obj)):
         cursor.execute("select obj.logainm_id from names as parent join geometric_contains as con on (parent.logainm_id = con.outer_obj_id) join names as obj on (obj.logainm_id = con.inner_obj_id) where parent.logainm_category_code = ? and obj.logainm_category_code = ? and parent.logainm_id = ? and obj.name_en = ?;", [parent_logainm_code, obj_logainm_code, parent_logainm_id, name])
         data = cursor.fetchall()
-        data_str = ", ".join(x[0] for x in data)
+        data_str = ", ".join(str(x[0]) for x in data)
         if len(data) == 0:
             # No match, try other option
             continue
