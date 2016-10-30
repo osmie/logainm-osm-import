@@ -29,7 +29,7 @@ def logainm_tags(xml_el, logainm_data):
     tags = get_existing_osm_tags(xml_el)
     new_tags = {
         'logainm:ref': logainm_data['logainm_id'],
-        'logainm:url': 'http://www.logainm.ie/en/{}'.format(logainm_data['logainm_id'])
+        #'logainm:url': 'http://www.logainm.ie/en/{}'.format(logainm_data['logainm_id'])
     }
 
     # Not adding official_name:XX tags because that is not accurate for NI.
