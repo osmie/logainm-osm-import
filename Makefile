@@ -52,18 +52,5 @@ sample: clean new-boundaries.osm.xml boundaries.osm.xml
 	tar -cf sample-data-`date -I`.tar boundaries.osm.xml new-boundaries.osm.xml
 	lzma sample-data-`date -I`.tar
 
-logainm-csvs.zip:
-	wget -O logainm-csvs.zip http://www.technomancy.org/logainm/logainm-csvs.zip
-
-logainm-csvs/logainm_names.csv: logainm-csvs.zip
-	aunpack logainm-csvs.zip
-	# Without this, the datetime in logainm_name.csvs will be old and hence
-	# it'll always try to rename thistarget
-	touch logainm-csvs/*
-
-logainm.sqlite: logainm-csvs/logainm_names.csv
-	-rm -f logainm.sqlite
-	cat csv2sqlite.sql | sqlite3 logainm.sqlite
-
 lint: boundaries.osm.xml
 	python logainm_lint.py -i boundaries.osm.xml --dupe-logainm-ref
