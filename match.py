@@ -337,7 +337,7 @@ def main():
                 logging.debug("Adding tags to OSM_ID %d", osm_id)
                 logaimn_data = logainm_candidates[('relation', osm_id)]
                 for k, v in logainm_tags(rel, logaimn_data).items():
-                    ET.SubElement(rel, 'tag', {'k': k, 'v': v})
+                    ET.SubElement(rel, 'tag', {'k': k, 'v': unicode(v)})
             else:
                 root.remove(rel)
 
