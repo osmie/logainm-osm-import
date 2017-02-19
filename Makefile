@@ -54,3 +54,7 @@ sample: clean new-boundaries.osm.xml boundaries.osm.xml
 
 lint: boundaries.osm.xml
 	python logainm_lint.py -i boundaries.osm.xml --dupe-logainm-ref
+
+add_all_tags: boundaries.osm.xml
+	python add_all_logainm_tags.py -i boundaries.osm.xml -o boundaries-all-logainm-tags.osm.xml
+
